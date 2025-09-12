@@ -1,11 +1,23 @@
 import React from "react";
 import Logo from "./assets/LOGO.png";
+import User from "./assets/User.svg"
+import Cart from "./assets/Cart.svg"
+import Navbar from "./Navbar";
 
 function Header() {
     return(
-        <div className="w-full h-20 bg-black flex flex-row items-center">
-            <div className="w-[70px] h-[70px]">
-                <img src={Logo} className="w-[60px] h-[60px]"/>
+        <div className="w-full h-20 bg-black flex flex-row justify-between items-center">
+            <div className="pl-6 w-[80px] h-[80px]">
+                <img src={Logo} className="w-[80px] h-[80px]"/>
+            </div>
+            <Navbar />
+            <div className="flex flex-row gap-4 pr-5">
+                <div className="flex justify-center items-center w-[40px] h-[40px] bg-white rounded-full hover:bg-gray-600">
+                    <img src={User} className="w-[20px] h-[20px]"/>
+                </div>
+                <div className="flex justify-center items-center w-[40px] h-[40px] bg-white rounded-full hover:bg-gray-600">
+                    <img src={Cart}  className="w-[20px] h-[20px]"/>
+                </div>
             </div>
         </div>
     )
