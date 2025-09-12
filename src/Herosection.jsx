@@ -1,11 +1,13 @@
 import React from "react";
-import HeroImg from "./assets/hero.jpg"
+import HeroImg from "./assets/hero.jpg";
 import Typewriter from 'typewriter-effect';
-function Herosection(){
-    return(
-        <div className="flex flex-row gap-[150px] justify-center items-center">
+import { motion } from "framer-motion";
+
+function Herosection() {
+    return (
+        <div className="flex flex-col md:flex-row md:gap-[150px] gap-10 justify-center items-center mt-20">
             <div className="flex flex-col justify-center gap-4">
-                <p className="text-5xl text-gray-500 font-bold ">
+                <p className="text-4xl md:text-5xl text-gray-500 font-bold ">
                     <Typewriter 
                         options={{
                             strings: ["Don't think. Jump !"],
@@ -14,12 +16,18 @@ function Herosection(){
                         }}
                     />
                 </p>
-                <p className="text-6xl text-white font-extrabold">MANIACRUMBLE</p>
+                <p className=" text-4xl md:text-6xl text-white font-extrabold">MANIACRUMBLE</p>
             </div>
-            <div className="w-[300px]  justify-center pt-10">
-                <img src={HeroImg}  className="w-[700px] rounded-r-full"/>
+            <div className="w-[300px] justify-center pt-10">
+                <motion.img
+                    src={HeroImg}
+                    className="w-[700px] rounded-r-full"
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1 }}
+                />
             </div>
         </div>
     );
 }
-export default Herosection
+export default Herosection;
