@@ -3,7 +3,7 @@ import HeroImg from "./assets/hero.jpg";
 import Typewriter from 'typewriter-effect';
 import { motion } from "framer-motion";
 
-function Herosection() {
+function HeroSection() {
     return (
         <div className="flex flex-col md:flex-row md:gap-[150px] gap-10 justify-center items-center mt-20">
             <div className="flex flex-col justify-center gap-4">
