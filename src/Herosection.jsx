@@ -30,4 +30,4 @@ function Herosection() {
         </div>
     );
 }
-export default Herosection;
+export default HeroSection;
