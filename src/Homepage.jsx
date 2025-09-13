@@ -1,6 +1,6 @@
 import React from "react";
 import {motion} from "framer-motion"
-import HeroSection from "./HeroSection";
+import HeroSection from "./Herosection";
 import Beanie from "../Products/Beanie.jpg"
 import BlackWaveCap from "../Products/BlackWaveCap.jpg"
 import BlackSnapBack from "../Products/BlackSnapback.jpg"
