@@ -1,7 +1,7 @@
 import React from "react";
 function Footer(){
     return(
-        <div className=" flex flex-col bg-white justify-between text-black w-full h-[300px] mt-20 ">
+        <div className=" flex flex-col bg-white justify-between text-black w-full h-[280px] mt-20 ">
             <div className="flex flex-col md:flex-row justify-between">
                 <div className="flex flex-col  gap-2 ml-10 mt-10">
                     <p className="font-extrabold text-2xl">CONTACT US</p>< br/>

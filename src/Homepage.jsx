@@ -1,5 +1,6 @@
 import React from "react";
 import {motion} from "framer-motion"
+import { Link } from "react-router-dom";
 import HeroSection from "./Herosection";
 import Beanie from "../Products/Beanie.jpg"
 import BlackWaveCap from "../Products/BlackWaveCap.jpg"
@@ -55,8 +56,9 @@ function Homepage() {
                             <p className="text-gray-500 font-bold">{product.productDesc}</p>
                         </div>
 
-                        <button className="bg-black text-white w-22 h-11 md:w-22 md:h-10 font-bold rounded-full mt-3 hover:bg-gray-600 transition-all duration-500">SHOP</button>
-
+                        <Link to="/shop">
+                            <button className="bg-black text-white w-32 h-10 font-bold rounded-full hover:bg-gray-600 transition-all duration-500">SHOP NOW</button>
+                        </Link>
                         
                     </motion.div>
                 ))}
