@@ -18,7 +18,10 @@ function Shop(){
     ]
 
     return(
-        <div></div>
+        <div>
+            <h1 className="text-4xl font-bold text-center mt-10">Shop Our Products</h1>
+            <p className="text-4xl text-white font-extrabold text-center mt-10">This Page is still under Development :)</p>
+        </div>
     );
 }
 
