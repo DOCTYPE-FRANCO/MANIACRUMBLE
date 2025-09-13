@@ -41,7 +41,7 @@ function Homepage() {
                 {productdisp.map((product) => (
                     <motion.div
                         key={product.id}
-                        className="flex flex-col gap-3 justify-center items-center bg-white w-[250px] h-[400px] rounded-4xl relative bottom-0 hover:bottom-6 transition-all duration-500"
+                        className="flex flex-col gap-3 justify-center items-center bg-white w-[250px] h-[420px] rounded-4xl relative bottom-0 hover:bottom-6 transition-all duration-500"
                         initial={{opacity:0, y:50}}
                         animate={{opacity:1, y:0}}
                         transition={{duration:1}}
@@ -55,7 +55,7 @@ function Homepage() {
                             <p className="text-gray-500 font-bold">{product.productDesc}</p>
                         </div>
 
-                        <button className="bg-black text-white w-22 h-11 md:w-22 md:h-14 font-bold rounded-full mt-3 hover:bg-gray-600 transition-all duration-500">SHOP</button>
+                        <button className="bg-black text-white w-22 h-11 md:w-22 md:h-10 font-bold rounded-full mt-3 hover:bg-gray-600 transition-all duration-500">SHOP</button>
 
                         
                     </motion.div>
