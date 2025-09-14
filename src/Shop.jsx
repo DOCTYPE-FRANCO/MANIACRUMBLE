@@ -116,9 +116,9 @@ function Shop(){
     return(
         <div className="pt-20">
             <h1 className="text-4xl text-white font-extrabold text-center mt-10">Shop Our Products</h1>
-            <div className="  border-0 border-white md:hover:border transition-all duration-300 mt-10 rounded-3xl w-[90%] md:w-[70%] h-[500px] bg-black flex flex-col justify-center items-center m-auto">
+            <div className="  border-0 border-white md:hover:border transition-all duration-300 mt-10 rounded-3xl w-[90%] md:w-[70%] md:h-[500px] bg-black flex flex-col justify-center items-center m-auto">
                 <h2 className="text-2xl font-bold text-white text-center">Snapback Hats</h2>
-                <div className="flex flex-col md:flex-row justify-center items-center ">
+                <div className="flex flex-col gap-3 md:flex-row justify-center items-center ">
                     {snapbacks.map((snapback) =>(
                         <div 
                             key={snapback.id}
@@ -144,9 +144,9 @@ function Shop(){
                 </div>
             </div>
 
-            <div className="  border-0 border-white md:hover:border transition-all duration-300 mt-10 rounded-3xl w-[90%] md:w-[70%] h-[850px] bg-black flex flex-col justify-center items-center m-auto">
+            <div className="  border-0 border-white md:hover:border transition-all duration-300 mt-10 rounded-3xl w-[90%] md:w-[70%] md:h-[850px] bg-black flex flex-col justify-center items-center m-auto">
                 <h2 className="text-2xl font-bold text-white text-center">WaveCaps </h2>
-                <div className="grid md:grid-cols-3  justify-center items-center ">
+                <div className=" flex flex-col md:grid md:grid-cols-3  justify-center items-center ">
                     {waveCaps.map((waveCap) =>(
                         <div 
                             key={waveCap.id}
@@ -172,7 +172,7 @@ function Shop(){
                 </div>
             </div>
 
-            <div className="  border-0 border-white md:hover:border transition-all duration-300 mt-10 rounded-3xl w-[90%] md:w-[70%] h-[500px] bg-black flex flex-col justify-center items-center m-auto">
+            <div className="  border-0 border-white md:hover:border transition-all duration-300 mt-10 rounded-3xl w-[90%] md:w-[70%] md:h-[500px] bg-black flex flex-col justify-center items-center m-auto min-h-screen">
                 <h2 className="text-2xl font-bold text-white text-center">Beanies</h2>
                 <div className="flex flex-col md:flex-row justify-center items-center ">
                     {beanies.map((beanie) =>(
