@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 
 function Header() {
     return(
-        <div className="w-full h-20 bg-black flex flex-row justify-between items-center">
+        <div className="w-full h-20 bg-black flex flex-row justify-between items-center fixed top-0 z-50">
             <div className="pl-6 w-[80px] h-[80px]">
                 <img src={Logo} className="w-[80px] h-[80px]"/>
             </div>
