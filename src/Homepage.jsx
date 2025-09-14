@@ -38,6 +38,8 @@ function Homepage() {
         <div className="md:mt-20">
             <HeroSection />
 
+            <p className="text-white text-center text-3xl font-bold mt-10">--10% DISCOUNT SALES--</p>
+
             <div className="flex flex-col justify-center items-center md:flex-row gap-4 mt-20">
                 {productdisp.map((product) => (
                     <motion.div
