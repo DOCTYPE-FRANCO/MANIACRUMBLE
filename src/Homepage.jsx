@@ -35,7 +35,7 @@ function Homepage() {
         },
     ]
     return(
-        <div className="md:-mt-10">
+        <div className="md:mt-20">
             <HeroSection />
 
             <div className="flex flex-col justify-center items-center md:flex-row gap-4 mt-20">
