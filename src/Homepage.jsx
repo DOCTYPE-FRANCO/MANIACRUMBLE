@@ -35,7 +35,7 @@ function Homepage() {
         },
     ]
     return(
-        <div className="md:mt-20">
+        <div className="md:mt-20 overflow-hidden">
             <HeroSection />
 
             <p className="text-white text-center text-3xl font-bold mt-30">--10% DISCOUNT SALES--</p>
