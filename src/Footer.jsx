@@ -1,7 +1,7 @@
 import React from "react";
 function Footer(){
     return(
-        <div className=" flex flex-col gap-3 bg-white justify-between text-black w-full h-[600px] md:h-[280px] mt-20 ">
+        <div className=" flex flex-col gap-3 bg-white justify-between text-black w-full h-[600px] md:h-[300px] mt-20 ">
             <div className="flex flex-col gap-4 md:flex-row justify-between">
                 <div className="flex flex-col  gap-2 ml-10 mt-10">
                     <p className="font-extrabold text-2xl">CONTACT US</p>< br/>
@@ -17,7 +17,7 @@ function Footer(){
                 </div>
             </div>
             <div className="flex justify-center items-center mt-10">
-                <p className="font-bold">© 2024 ManiaCrumble. All rights reserved.</p>
+                <p className="font-bold">© 2025 ManiaCrumble. All rights reserved.</p>
             </div>
         </div>
     );
