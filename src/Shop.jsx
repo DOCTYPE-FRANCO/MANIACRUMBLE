@@ -131,7 +131,7 @@ function Shop(){
                                 <p className="text-2xl font-mono font-extrabold">{snapback.name}</p>
                             </div>
                             <div>
-                                <p className="font-bold font-mono text-gray-600">{snapback.description}</p>
+                                <p className="font-bold font-mono text-center text-gray-600">{snapback.description}</p>
                             </div>
                             <div className="mb-3">
                                 <p className="font-bold font-mono">${snapback.price}</p>
@@ -159,7 +159,7 @@ function Shop(){
                                 <p className="text-2xl font-mono font-extrabold">{waveCap.name}</p>
                             </div>
                             <div>
-                                <p className="font-bold font-mono text-gray-600">{waveCap.description}</p>
+                                <p className="font-bold font-mono text-center text-gray-600">{waveCap.description}</p>
                             </div>
                             <div className="mb-3">
                                 <p className="font-bold font-mono">${waveCap.price}</p>
@@ -187,7 +187,7 @@ function Shop(){
                                 <p className="text-2xl font-mono font-extrabold">{beanie.name}</p>
                             </div>
                             <div>
-                                <p className="font-bold font-mono text-gray-600">{beanie.description}</p>
+                                <p className="font-bold font-mono text-center text-gray-600">{beanie.description}</p>
                             </div>
                             <div className="mb-3">
                                 <p className="font-bold font-mono">${beanie.price}</p>
