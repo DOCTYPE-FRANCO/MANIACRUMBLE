@@ -11,7 +11,7 @@ import BlackSnapBack from "../Products/BlackSnapback.jpg"
 import OGSkullCap from "../Products/OGSkullcapmodels.jpg"
 
 import BeanieModel from "../Products/BeanieModel.jpg"
-import BlackSkullModel from "../Products/BlackSkullcapmodel.jpg"
+import BlackSkullModel from "../Products/blackSkullcapmodel.jpg"
 import BlackSkullModel2 from "../Products/BlackSkullCapmodel2.jpg"
 import BlackSnapModel from "../Products/BlackSnapbackmodel.jpg"
 import BlondeSnapModel from "../Products/BlondeSnapbackmodel.jpg"
