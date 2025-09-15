@@ -1,11 +1,25 @@
 import React from "react";
 import {motion} from "framer-motion"
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import 'swiper/css';
 import HeroSection from "./Herosection";
 import Beanie from "../Products/Beanie.jpg"
 import BlackWaveCap from "../Products/BlackWaveCap.jpg"
 import BlackSnapBack from "../Products/BlackSnapback.jpg"
 import OGSkullCap from "../Products/OGSkullcapmodels.jpg"
+
+import BeanieModel from "../Products/BeanieModel.jpg"
+import BlackSkullModel from "../Products/BlackSkullcapmodel.jpg"
+import BlackSkullModel2 from "../Products/BlackSkullCapmodel2.jpg"
+import BlackSnapModel from "../Products/BlackSnapbackmodel.jpg"
+import BlondeSnapModel from "../Products/BlondeSnapbackmodel.jpg"
+import BlueSnapModel from "../Products/Bluesnapbackmodel.jpg"
+import CamoSkullModel from "../Products/CamoSkullCapModel.jpg"
+import OGSkullModel from "../Products/OGSkullcapmodel.jpg"
+import PinkSkullModel from "../Products/PinkSkullCapmodel.jpg"
+import SkullModels from "../Products/SkullCapModels.jpg"
 
 function Homepage() {
     const productdisp = [
@@ -64,7 +78,62 @@ function Homepage() {
                         
                     </motion.div>
                 ))}
+                
             </div>
+            <p className="text-white font-bold text-3xl mt-30 text-center">SWIPE 👉👉👉</p>
+            <div className="w-full flex justify-center items-center">
+                <Swiper
+                    spaceBetween={10}
+                    slidesPerView={3}
+                    modules={[Autoplay, Pagination, Navigation]}  
+                    pagination={{ clickable: true }}
+                    autoplay={{ delay: 2000, disableOnInteraction: false }}
+                    navigation={true}
+                    loop={true}
+                    className="mySwiper w-full max-w-6xl mt-10"
+                >
+                    <SwiperSlide>
+                    <img src={BeanieModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+                    <img src={BlackSkullModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+                    <img src={BlondeSnapModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+                    <img src={BlackSkullModel2} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+                    <img src={PinkSkullModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+                    <img src={OGSkullModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+                    <img src={BlackSnapModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+                    <img src={BlueSnapModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+                    <img src={CamoSkullModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+
+                    <SwiperSlide>
+                    <img src={SkullModels} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    </SwiperSlide>
+                </Swiper>
+            </div>
+
         </div>
     );
 }
