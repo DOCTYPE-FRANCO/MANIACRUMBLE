@@ -13,7 +13,7 @@ function Cart(){
             <div className="flex flex-row gap-20">
                 <div className="flex flex-col justify-center items-center ">
                     <div>
-                        <ul className="flex md:flex-col gap-10">
+                        <ul className="flex flex-col  gap-10">
                             {items.length === 0 ? (
                                 <p className="text-white font-bold text-2xl p-5">Your cart is empty</p>
                             ) : 
