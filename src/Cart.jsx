@@ -10,10 +10,10 @@ function Cart(){
         <div className="flex flex-col justify-center items-center  w-full mt-20">
             <h1 className="text-4xl text-white font-extrabold mb-5">Cart</h1>
 
-            <div className="flex flex-row gap-20">
-                <div className="flex flex-col justify-center items-center ">
-                    <div>
-                        <ul className="flex flex-col  gap-10">
+            <div className="flex flex-row  gap-20">
+                <div className="flex flex-col md:flex-row justify-center items-center ">
+                    <div className="flex flex-col justify-center items-center border border-white ">
+                        <ul className="flex flex-col gap-10">
                             {items.length === 0 ? (
                                 <p className="text-white font-bold text-2xl p-5">Your cart is empty</p>
                             ) : 
@@ -38,12 +38,14 @@ function Cart(){
                             ))}
                         </ul>
                     </div>
-                </div>
-                <div className="flex flex-col justify-center items-center border border-white ">
-                    <div>
-                        <p className="text-white font-bold text-2xl p-5">CheckOut</p>
+
+                    <div className="flex flex-col  border border-white ">
+                        <div className="flex ">
+                            <p className="text-white font-bold text-2xl p-5">CheckOut</p>
+                        </div>
                     </div>
                 </div>
+                
             </div>
         </div>
     );
