@@ -1,7 +1,7 @@
 import React from "react";
 import HeroImg from "./assets/hero.jpg";
 import Typewriter from 'typewriter-effect';
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 
 function HeroSection() {
     return (
