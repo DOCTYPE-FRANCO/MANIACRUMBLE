@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useState, useContext} from "react";
+import { CartContext }  from "./CartContext";
 import { Toaster, toast } from "react-hot-toast";
 import RedSnap from "../Products/RedSnapback.jpg"
 import BlackSnap from "../Products/BlackSnapback.jpg"
@@ -110,12 +111,10 @@ function Shop(){
             price: 14.99,
         },
     ]
+    const {addToCart} = useContext(CartContext)
+    
 
-    function addToCart(item) {
-        toast.success("Added to cart!");
-        console.log(`Added to cart.`);
-    }
-
+    
     return(
         <div className="pt-20">
             <h1 className="text-4xl text-white font-extrabold text-center mt-10">Shop Our Products</h1>
@@ -140,8 +139,8 @@ function Shop(){
                                 <p className="font-bold font-mono">${snapback.price}</p>
                             </div>
 
-                            <button onClick={addToCart} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
-                            <Toaster position="top-right"/>
+                            <button onClick={() => addToCart(snapback)} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
+
                         </div>
                     ))}
                 </div>
