@@ -1,4 +1,5 @@
 import React from "react";
+import { Toaster, toast } from "react-hot-toast";
 import RedSnap from "../Products/RedSnapback.jpg"
 import BlackSnap from "../Products/BlackSnapback.jpg"
 import BlondeSnap from "../Products/BlondeSnapbackpic.jpg" 
@@ -108,10 +109,12 @@ function Shop(){
             image: OGSkullCapPink,
             price: 14.99,
         },
-
-
-
     ]
+
+    function addToCart(item) {
+        toast.success("Added to cart!");
+        console.log(`Added to cart.`);
+    }
 
     return(
         <div className="pt-20">
@@ -137,8 +140,8 @@ function Shop(){
                                 <p className="font-bold font-mono">${snapback.price}</p>
                             </div>
 
-                            <button className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
-
+                            <button onClick={addToCart} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
+                            <Toaster position="top-right"/>
                         </div>
                     ))}
                 </div>
@@ -165,8 +168,8 @@ function Shop(){
                                 <p className="font-bold font-mono">${waveCap.price}</p>
                             </div>
 
-                            <button className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
-
+                            <button onClick={addToCart} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
+                            <Toaster position="top-right"/>
                         </div>
                     ))}
                 </div>
@@ -193,8 +196,8 @@ function Shop(){
                                 <p className="font-bold font-mono">${beanie.price}</p>
                             </div>
 
-                            <button className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
-
+                            <button onClick={addToCart} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
+                            <Toaster position="top-right"/>
                         </div>
                     ))}
                 </div>
