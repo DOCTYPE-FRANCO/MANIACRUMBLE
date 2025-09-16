@@ -16,21 +16,21 @@ import OGSkullCapPink from "../Products/SkullCappink.jpg"
 function Shop(){
     const snapbacks = [
         {
-            id: 1,
+            id: "S1",
             name: "Black SnapBack",
             description: "SnapBack Hat.",
             price: 19.99,
             image: BlackSnap
         },
         {
-            id: 2,
+            id: "S2",
             name: "Red SnapBack",
             description: "SnapBack Hat.",
             price: 19.99,
             image: RedSnap
         },
         {
-            id: 3,
+            id: "S3",
             name: "Blonde SnapBack",
             description: "SnapBack Hat.",
             price: 19.99,
@@ -40,21 +40,21 @@ function Shop(){
 
     const beanies = [
         {
-            id: 1,
+            id: "B1",
             name: "Black Beanie",
             description: "Don't Think, Jump Editions.",
             price: 19.99,
             image: Beanie
         },
         {
-            id: 2,
+            id: "B2",
             name: "Beanie",
             description: "S....",
             price: 19.99,
             image: BeanieM
         },
         {
-            id: 3,
+            id: "B3",
             name: "Blonde SnapBack",
             description: "A....",
             price: 19.99,
@@ -65,14 +65,14 @@ function Shop(){
 
     const waveCaps = [
         {
-            id: 1,
+            id: "W1",
             name: "Black Wave Cap",
             description: "Wave Cap Hat.",
             image: BlackWaveCap,
             price: 14.99,
         },
         {
-            id: 2,
+            id: "W2",
             name: "Camo Wave Cap",
             description: "Wave Cap .",
             image: CamoWave,
@@ -80,7 +80,7 @@ function Shop(){
         },
         
         {
-            id: 3,
+            id: "W3",
             name: "Pink Wave Cap",
             description: "Wave Cap .",
             image: PinkWave,
@@ -88,7 +88,7 @@ function Shop(){
         },
 
         {
-            id: 4,
+            id: "W4",
             name: "Gray Wave Cap",
             description: "Wave Cap .",
             image: GrayWave,
@@ -96,7 +96,7 @@ function Shop(){
         },
 
         {
-            id: 5,
+            id: "W5",
             name: "OG Wave Cap",
             description: "Limited Edition Wave Cap .",
             image: OGSkullCap,
@@ -104,7 +104,7 @@ function Shop(){
         },
 
         {
-            id: 6,
+            id: "W6",
             name: "OG Wave Cap (Pink)",
             description: "Limited Edition Wave Cap .",
             image: OGSkullCapPink,
@@ -140,7 +140,7 @@ function Shop(){
                             </div>
 
                             <button onClick={() => addToCart(snapback)} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
-
+                            <Toaster position="top-right"/>
                         </div>
                     ))}
                 </div>

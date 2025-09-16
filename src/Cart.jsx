@@ -7,21 +7,21 @@ function Cart(){
     
 
     return(
-        <div className="flex flex-col justify-center items-center  w-full mt-20">
+        <div className="flex flex-col justify-center items-center  w-full mt-20 overflow-hidden">
             <h1 className="text-4xl text-white font-extrabold mb-5">Cart</h1>
 
             <div className="flex flex-row  gap-20">
                 <div className="flex flex-col md:flex-row gap-20 justify-center ">
-                    <div className="flex flex-col justify-center items-center border border-white ">
-                        <ul className="flex flex-col gap-10">
+                    <div className="flex flex-col justify-center items-center ">
+                        <div className="flex flex-col gap-10">
                             {items.length === 0 ? (
                                 <p className="text-white font-bold text-2xl p-5">Your cart is empty</p>
                             ) : 
                             
                             items.map((item) => (
-                                <div key={item.id} className="flex md:flex-row border border-white">
+                                <div key={item.id} className="flex flex-row border border-white sm-w-[300px] rounded-2xl">
                                     <div>
-                                        <img src={item.image} alt={item.name} className="w-[250px] rounded-2xl m-5"/>
+                                        <img src={item.image} alt={item.name} className="w-[250px] sm:w-[150px] rounded-2xl m-5"/>
                                     </div>
                                     <div className="flex flex-col justify-center items-center gap-5 m-5">
                                         <div className="flex justify-center items-center">
@@ -36,7 +36,7 @@ function Cart(){
                                     </div>
                                 </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>
 
                     <div className="flex flex-col border  items-center w-[500px] border-white ">
