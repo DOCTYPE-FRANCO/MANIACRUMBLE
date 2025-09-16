@@ -19,9 +19,9 @@ function Cart(){
                             ) : 
                             
                             items.map((item) => (
-                                <div key={item.id} className="flex flex-row border border-white sm-w-[300px] rounded-2xl">
+                                <div key={item.id} className="flex flex-row border border-white w-[350px] md:w-[500px] rounded-2xl gap-5 hover:scale-105 transition-all duration-300">
                                     <div>
-                                        <img src={item.image} alt={item.name} className="w-[250px] sm:w-[150px] rounded-2xl m-5"/>
+                                        <img src={item.image} alt={item.name} className="w-[200px] sm:w-[150px] rounded-2xl m-5"/>
                                     </div>
                                     <div className="flex flex-col justify-center items-center gap-5 m-5">
                                         <div className="flex justify-center items-center">
