@@ -167,7 +167,7 @@ function Shop(){
                                 <p className="font-bold font-mono">${waveCap.price}</p>
                             </div>
 
-                            <button onClick={addToCart} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
+                            <button onClick={() => addToCart(waveCap)} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
                             <Toaster position="top-right"/>
                         </div>
                     ))}
@@ -195,7 +195,7 @@ function Shop(){
                                 <p className="font-bold font-mono">${beanie.price}</p>
                             </div>
 
-                            <button onClick={addToCart} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
+                            <button onClick={() => addToCart(beanie)} className="bg-black w-[130px] h-[30px] text-white rounded-2xl font-bold hover:bg-gray-500 active:bg-gray-500 active:text-black">Add to Cart</button>
                             <Toaster position="top-right"/>
                         </div>
                     ))}
