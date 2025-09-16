@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import 'swiper/css';
-import HeroSection from "./Herosection";
+import HeroSection from "./HeroSection";
 import Beanie from "../Products/Beanie.jpg"
 import BlackWaveCap from "../Products/BlackWaveCap.jpg"
 import BlackSnapBack from "../Products/BlackSnapback.jpg"
