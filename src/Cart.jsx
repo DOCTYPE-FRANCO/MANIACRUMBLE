@@ -1,9 +1,21 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import { CartContext }  from "./CartContext";
 
 function Cart(){
+    const [count, setCount] = useState(1)
+    const {items, removeFromCart} = useContext(CartContext);
 
-    const {items} = useContext(CartContext);
+
+
+    function increment(){
+        setCount(count + 1);
+    }
+
+    function decrement(){
+        if(count > 1){
+            setCount(count - 1);
+        }
+    }
     
 
     return(
@@ -19,7 +31,7 @@ function Cart(){
                             ) : 
                             
                             items.map((item) => (
-                                <div key={item.id} className="flex flex-row border border-white w-[350px] md:w-[500px] rounded-2xl gap-5 hover:scale-105 transition-all duration-300">
+                                <div key={item.id} className="flex flex-row border border-white w-[390px] md:w-[500px] rounded-2xl gap-5 hover:scale-105 transition-all duration-300">
                                     <div>
                                         <img src={item.image} alt={item.name} className="w-[200px] sm:w-[150px] rounded-2xl m-5"/>
                                     </div>
@@ -30,8 +42,16 @@ function Cart(){
                                         <div>
                                             <p className="text-white font-bold text-2xl text-center">${item.price}</p>
                                         </div>
-                                        <div>
-                                            <button className="bg-white w-[70px] h-[30px] font-bold rounded-full hover:bg-gray-600">Delete</button>
+                                        <div className=" flex flex-row gap-4">
+                                            <button className="text-black bg-white font-bold p-1 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900">Buy Now</button>
+                                            <button onClick={() => removeFromCart(item.id)} className="bg-white  font-bold rounded-xl p-1 md:p-2 text-center hover:bg-gray-600 active:bg-gray-900">Remove</button>
+                                            
+                                        </div>
+                                        <div className="flex flex-row gap-4">
+                                            <button onClick={increment} className="text-black bg-white text-2xl font-bold  px-3 text-center h-[40px] hover:bg-gray-600 active:bg-gray-900">+</button>
+                                            <p className="justify-center text-white text-center border border-white font-bold  p-2 inline-block w-[40px] h-[40px]">{count}</p>
+                                            <button onClick={decrement} className="text-black bg-white text-2xl font-bold p-1 px-3 text-center h-[40px] hover:bg-gray-600 active:bg-gray-900hover:bg-gray-600 active:bg-gray-900">-</button>
+                                            
                                         </div>
                                     </div>
                                 </div>
