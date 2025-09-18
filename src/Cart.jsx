@@ -2,20 +2,10 @@ import React, {useContext, useState} from "react";
 import { CartContext }  from "./CartContext";
 
 function Cart(){
-    const [count, setCount] = useState(1)
-    const {items, removeFromCart} = useContext(CartContext);
+    
+    const {items, removeFromCart, increment, decrement} = useContext(CartContext);
 
 
-
-    function increment(){
-        setCount(count + 1);
-    }
-
-    function decrement(){
-        if(count > 1){
-            setCount(count - 1);
-        }
-    }
     
 
     return(
@@ -48,9 +38,9 @@ function Cart(){
                                             
                                         </div>
                                         <div className="flex flex-row gap-4">
-                                            <button onClick={increment} className="text-black bg-white text-2xl font-bold  px-3 text-center h-[40px] hover:bg-gray-600 active:bg-gray-900">+</button>
-                                            <p className="justify-center text-white text-center border border-white font-bold  p-2 inline-block w-[40px] h-[40px]">{count}</p>
-                                            <button onClick={decrement} className="text-black bg-white text-2xl font-bold p-1 px-3 text-center h-[40px] hover:bg-gray-600 active:bg-gray-900hover:bg-gray-600 active:bg-gray-900">-</button>
+                                            <button onClick={()=>increment(item.id)} className="text-black bg-white text-2xl font-bold  px-3 text-center h-[40px] hover:bg-gray-600 active:bg-gray-900">+</button>
+                                            <p className="justify-center text-white text-center border border-white font-bold  p-2 inline-block w-[40px] h-[40px]">{item.quantity}</p>
+                                            <button onClick={()=>decrement(item.id)} className="text-black bg-white text-2xl font-bold p-1 px-3 text-center h-[40px] hover:bg-gray-600 active:bg-gray-900hover:bg-gray-600 active:bg-gray-900">-</button>
                                             
                                         </div>
                                     </div>
