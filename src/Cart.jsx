@@ -3,7 +3,9 @@ import { CartContext }  from "./CartContext";
 
 function Cart(){
     
-    const {items, removeFromCart, increment, decrement} = useContext(CartContext);
+    const {items, removeFromCart, increment, decrement, number,isEmpty, total} = useContext(CartContext);
+
+    
 
 
     
@@ -49,9 +51,25 @@ function Cart(){
                         </div>
                     </div>
 
-                    <div className="flex flex-col border  items-center w-[500px] border-white ">
+                    <div className="flex flex-col gap-7 border-t items-center w-[500px] border-white rounded-2xl md:h-[500px] ">
                         <div>
-                            <p className="text-white font-bold text-2xl p-5">CheckOut</p>
+                            <p className="text-white font-extrabold text-3xl p-5">CheckOut</p>
+                        </div>
+
+                        <div className={isEmpty? "hidden" : ""}>
+                            <p className="text-white text-2xl font-bold">Sub-Total({number} Items): ${total.toFixed(2)}</p>
+                        </div>
+
+                        <div className={isEmpty? "hidden" : ""}>
+                            <p className="text-white text-2xl font-bold">Tax: $10.00</p>
+                        </div>
+
+                        <div className={isEmpty? "hidden" : ""}>
+                            <p className="text-black bg-white text-3xl font-bold px-10">Total:  ${parseFloat(total.toFixed(2)) +  10}</p>
+                        </div>
+
+                        <div className={isEmpty? "hidden  mt-16" : ""}>
+                            <button className=" text-black bg-white font-bold p-3 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900">PROCEED TO PAY</button>
                         </div>
                     </div>
                 </div>
