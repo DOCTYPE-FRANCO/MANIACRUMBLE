@@ -1,13 +1,10 @@
 import React, {useContext, useState} from "react";
 import { CartContext }  from "./CartContext";
+import { ClipLoader } from "react-spinners";
 
 function Cart(){
     
     const {items, removeFromCart, increment, decrement, number,isEmpty, total} = useContext(CartContext);
-
-    
-
-
     
 
     return(
@@ -74,6 +71,26 @@ function Cart(){
                     </div>
                 </div>
                 
+            </div>
+
+            <div className=" flex flex-col  items-center fixed md:w-[800px] md:h-[450px] bg-white top-24 left-1/2 transform -translate-x-1/2
+">
+                <div className="w-full">
+                    <p className="text-center md:text-3xl font-extrabold text-black">Payment</p>
+                </div>
+
+                <div className="w-full">
+                    <p className=" md:text-2xl font-bold text-black pl-3">Location</p>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                <div className="w-full">
+                    <p className="text-center md:text-3xl font-extrabold text-black">Payment</p>
+                </div>
+                
+
             </div>
         </div>
     );
