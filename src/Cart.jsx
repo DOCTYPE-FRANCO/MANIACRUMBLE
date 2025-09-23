@@ -5,6 +5,26 @@ import { ClipLoader } from "react-spinners";
 function Cart(){
     
     const {items, removeFromCart, increment, decrement, number,isEmpty, total} = useContext(CartContext);
+
+    const [Ldata,setLdata] = useState({
+        FirstName: "",
+        LastName: "",
+        StreetAddress: "",
+        State: ""
+    });
+
+    function handleChange(e){
+        const {name, value} = e.target;
+        setLdata(prev => ({
+            ...prev,
+            [name] : value
+        }));
+    }
+
+    function handleSubmit(e){
+        e.preventDefault()
+        setLdata({FirstName: "", LastName: "", StreetAddress: "", State: ""})
+    }
     
 
     return(
@@ -73,22 +93,107 @@ function Cart(){
                 
             </div>
 
-            <div className=" flex flex-col  items-center fixed md:w-[800px] md:h-[450px] bg-white top-24 left-1/2 transform -translate-x-1/2
-">
+            <div className=" flex flex-col  items-center fixed md:w-[850px] md:h-[420px] bg-white top-24 left-1/2 transform -translate-x-1/2 p-3 rounded-xs">
                 <div className="w-full">
                     <p className="text-center md:text-3xl font-extrabold text-black">Payment</p>
                 </div>
 
-                <div className="w-full">
-                    <p className=" md:text-2xl font-bold text-black pl-3">Location</p>
-                    <div>
-                        
+               
+
+                <div className="flex flex-row gap-4 mt-5">
+                    
+                    
+                    <div className="">
+                        <div className="flex flex-col border border-black rounded-xl">
+                            <div className="ml-6 font-bold">Add Shipping Location</div>
+
+                            <form className="mt-5 ml-6 flex flex-col gap-2 p-2">
+                                <div className="flex flex-row gap-2 ">
+                                    <label className="flex flex-col">
+                                        First Name:
+                                        <input 
+                                            name="FirstName"
+                                            value={Ldata.FirstName}
+                                            type="text"
+                                            className="w-[200px] h-[30px] border border-black pl-2"
+                                            placeholder=" e.g Uche"
+                                            onChange={handleChange}
+                                        />
+                                    </label>
+
+                                    <label className="flex flex-col">
+                                        Last Name:
+                                        <input 
+                                            name="LastName"
+                                            value={Ldata.LastName}
+                                            type="text"
+                                            className="w-[200px] h-[30px] border border-black pl-2"
+                                            onChange={handleChange}
+                                            placeholder="e.g Abu"
+                                        />
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <label className="flex flex-col">
+                                        Full Street Address:
+                                        <input 
+                                            name="StreetAddress"
+                                            value={Ldata.StreetAddress}
+                                            type="text"
+                                            className="w-[300px] h-[30px] border border-black pl-2"
+                                            onChange={handleChange}
+                                            placeholder="e.g 12, mope road, Sangotedo, Ajah"
+                                        />
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <label className="flex flex-col">
+                                        State:
+                                        <input 
+                                            name="State"
+                                            value={Ldata.State}
+                                            type="text"
+                                            className="w-[200px] h-[30px] border border-black pl-2"
+                                            onChange={handleChange}
+                                            placeholder="e.g Lagos"
+                                        />
+                                    </label>
+                                </div>
+
+                                
+                                <div className="flex justify-center ">
+                                    <button className="bg-black text-white hover:bg-gray-700 active:bg-gray-900 font-bold p-3 rounded-2xl">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-7 border py-3 items-center w-[300px] border-black rounded-2xl ">
+                        <div>
+                            <p className="text-black font-extrabold text-2xl p-5">CheckOut</p>
+                        </div>
+
+                        <div className={isEmpty? "hidden" : ""}>
+                            <p className="text-black font-bold">Sub-Total({number} Items): ${total.toFixed(2)}</p>
+                        </div>
+
+                        <div className={isEmpty? "hidden" : ""}>
+                            <p className="text-black  font-bold">Tax: $10.00</p>
+                        </div>
+
+                        <div className={isEmpty? "hidden" : ""}>
+                            <p className="text-black bg-white text-2xl font-bold px-10">Total:  ${parseFloat(total.toFixed(2)) +  10}</p>
+                        </div>
+
+                        <div className={isEmpty? "hidden  mt-16" : ""}>
+                            <button className=" text-white bg-black font-bold p-3 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900">PROCEED TO PAY</button>
+                        </div>
                     </div>
                 </div>
 
-                <div className="w-full">
-                    <p className="text-center md:text-3xl font-extrabold text-black">Payment</p>
-                </div>
+                
                 
 
             </div>
