@@ -1,6 +1,7 @@
 import React, {useContext, useState} from "react";
 import { CartContext }  from "./CartContext";
 import { ClipLoader } from "react-spinners";
+import X from "./assets/Xicon.svg"
 
 function Cart(){
     
@@ -12,6 +13,8 @@ function Cart(){
         StreetAddress: "",
         State: ""
     });
+
+    const [checkOut, setcheckOut] = useState(false);
 
     function handleChange(e){
         const {name, value} = e.target;
@@ -86,29 +89,29 @@ function Cart(){
                         </div>
 
                         <div className={isEmpty? "hidden  mt-16" : ""}>
-                            <button className=" text-black bg-white font-bold p-3 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900">PROCEED TO PAY</button>
+                            <button onClick={() => setcheckOut(true)} className=" text-black bg-white font-bold p-3 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900">PROCEED TO PAY</button>
                         </div>
                     </div>
                 </div>
                 
             </div>
 
-            <div className=" flex flex-col  items-center fixed md:w-[850px] md:h-[420px] bg-white top-24 left-1/2 transform -translate-x-1/2 p-3 rounded-xs">
-                <div className="w-full">
-                    <p className="text-center md:text-3xl font-extrabold text-black">Payment</p>
+            <div className={checkOut ? "flex flex-col  items-center fixed w-[400px] h-[820px] md:w-[850px] md:h-[420px] bg-white top-14 md:top-24 left-1/2 transform -translate-x-1/2 p-3 rounded-xs z-50 py-4 md:py-0" : "hidden"}>
+                <div className="w-full flex flex-row justify-between">
+                    <p className="text-center md:text-2xl font-extrabold text-black ml-5">Where are you located?</p>
+
+                    <img src={X} onClick={() => setcheckOut(false)} className="w-[40px] hover:bg-gray-300 active:bg-gray-600 transition-all duration-300"/>
                 </div>
 
                
 
-                <div className="flex flex-row gap-4 mt-5">
-                    
-                    
+                <div className="flex flex-col items-center md:flex-row gap-4 mt-5 transition-all duration-300">                   
                     <div className="">
                         <div className="flex flex-col border border-black rounded-xl">
                             <div className="ml-6 font-bold">Add Shipping Location</div>
 
-                            <form className="mt-5 ml-6 flex flex-col gap-2 p-2">
-                                <div className="flex flex-row gap-2 ">
+                            <form  onSubmit={handleSubmit} className="mt-5 md:ml-6 flex flex-col gap-2 p-5 md:p-2 ">
+                                <div className="flex flex-col md:flex-row gap-2 ">
                                     <label className="flex flex-col">
                                         First Name:
                                         <input 
@@ -164,7 +167,7 @@ function Cart(){
 
                                 
                                 <div className="flex justify-center ">
-                                    <button className="bg-black text-white hover:bg-gray-700 active:bg-gray-900 font-bold p-3 rounded-2xl">Submit</button>
+                                    <button className="bg-black text-white hover:bg-gray-700 active:bg-gray-900 font-semibold p-2 rounded-2xl transition-all duration-300">Submit</button>
                                 </div>
                             </form>
                         </div>
@@ -188,7 +191,7 @@ function Cart(){
                         </div>
 
                         <div className={isEmpty? "hidden  mt-16" : ""}>
-                            <button className=" text-white bg-black font-bold p-3 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900">PROCEED TO PAY</button>
+                            <button className=" text-white bg-black font-bold p-3 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900 transition-all duration-300">PROCEED TO PAY</button>
                         </div>
                     </div>
                 </div>
