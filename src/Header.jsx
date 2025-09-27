@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "./assets/LOGO.png";
 import User from "./assets/User.svg"
 import Cart from "./assets/Cart.svg"
+import Shop from "./assets/Shop.svg";
 import Navbar from "./Navbar";
 
 function Header() {
@@ -15,14 +16,22 @@ function Header() {
             </Link>
             <Navbar />
             <div className="flex flex-row gap-4 pr-5">
-                <div className="flex justify-center items-center w-[40px] h-[40px] bg-white rounded-full hover:bg-gray-600">
-                    <img src={User} className="w-[20px] h-[20px]"/>
-                </div>
+                <Link to="/shop">
+                    <div className="flex justify-center items-center w-[40px] h-[40px] bg-white rounded-full hover:bg-gray-600">
+                        <img src={Shop}  className="w-[20px] h-[20px]"/>
+                    </div>
+                </Link>
+
                 <Link to="/cart">
                     <div className="flex justify-center items-center w-[40px] h-[40px] bg-white rounded-full hover:bg-gray-600">
                         <img src={Cart}  className="w-[20px] h-[20px]"/>
                     </div>
                 </Link>
+
+                <div className="flex justify-center items-center w-[40px] h-[40px] bg-white rounded-full hover:bg-gray-600">
+                    <img src={User} className="w-[20px] h-[20px]"/>
+                </div>
+                
             </div>
         </div>
     )
