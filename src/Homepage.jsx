@@ -48,6 +48,12 @@ function Homepage() {
             productDesc: "First Edition",
         },
     ]
+
+    const [selectedPic, setSelectedPic] = useState(null);
+
+    function select(img){
+        setSelectedPic(img);
+    }
     return(
         <div className="md:mt-20 overflow-hidden">
             <HeroSection />
@@ -93,46 +99,65 @@ function Homepage() {
                     className="mySwiper w-full max-w-6xl mt-10"
                 >
                     <SwiperSlide>
-                    <img src={BeanieModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={BeanieModel} alt="" onClick={() => select(BeanieModel)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                    <img src={BlackSkullModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={BlackSkullModel} alt="" onClick={() => select(BlackSkullModel)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                    <img src={BlondeSnapModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={BlondeSnapModel} alt="" onClick={() => select(BlondeSnapModel)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                    <img src={BlackSkullModel2} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={BlackSkullModel2} alt="" onClick={() => select(BlackSkullModel2)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                    <img src={PinkSkullModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={PinkSkullModel} alt="" onClick={() => select(PinkSkullModel)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                    <img src={OGSkullModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={OGSkullModel} alt="" onClick={() => select(OGSkullModel)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                    <img src={BlackSnapModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={BlackSnapModel} alt="" onClick={() => select(BlackSnapModel)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                    <img src={BlueSnapModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={BlueSnapModel} alt="" onClick={() => select(BlueSnapModel)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                    <img src={CamoSkullModel} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={CamoSkullModel} alt="" onClick={() => select(CamoSkullModel)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
 
                     <SwiperSlide>
-                    <img src={SkullModels} alt="" className="w-[500px] md:w-[300px] rounded-2xl" />
+                    <img src={SkullModels} alt="" onClick={() => select(SkullModels)} className="w-[500px] md:w-[300px] rounded-2xl" />
                     </SwiperSlide>
                 </Swiper>
             </div>
+
+            {selectedPic && (
+                <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
+                    <div className="relative">
+                        <img 
+                            src={selectedPic} 
+                            alt="Selected" 
+                            className="max-w-[90vw] max-h-[80vh] rounded-xl shadow-lg"
+                        /> 
+                        <button 
+                            onClick={() => setSelectedPic(null)} 
+                            className="absolute top-2 right-2 bg-white px-3 py-1 rounded-full shadow-md"
+                        >
+                            ✖
+                        </button>
+                    </div>
+                </div>
+            )}
+
 
         </div>
     );
