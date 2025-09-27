@@ -42,12 +42,12 @@ function Cart(){
 
     function handleSubmit(e){
         e.preventDefault()
-
+        setLoading(true);
         if(Ldata.FirstName !== ""){
             toast.success("Location Added :)")
             setLocation(true)
         }
-        setLoading(true);
+        
         setLdata({FirstName: "", LastName: "", StreetAddress: "", State: ""})
 
         
