@@ -1,7 +1,8 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import { CartContext }  from "./CartContext";
 import { ClipLoader } from "react-spinners";
 import X from "./assets/Xicon.svg"
+import { Toaster, toast } from "react-hot-toast";
 
 function Cart(){
     
@@ -15,6 +16,21 @@ function Cart(){
     });
 
     const [checkOut, setcheckOut] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const [location, setLocation] = useState(false);
+
+    useEffect(() => {
+        if (loading){
+            const timer = setTimeout(() => {
+                setLoading(false)
+            }, 3000 )
+
+            return () => clearTimeout(timer);
+        }
+
+        
+    }, [loading])
 
     function handleChange(e){
         const {name, value} = e.target;
@@ -26,7 +42,15 @@ function Cart(){
 
     function handleSubmit(e){
         e.preventDefault()
+
+        if(Ldata.FirstName !== ""){
+            toast.success("Location Added :)")
+            setLocation(true)
+        }
+        setLoading(true);
         setLdata({FirstName: "", LastName: "", StreetAddress: "", State: ""})
+
+        
     }
     
 
@@ -98,7 +122,7 @@ function Cart(){
 
             <div className={checkOut ? "flex flex-col  items-center fixed w-[400px] h-[820px] md:w-[850px] md:h-[420px] bg-white top-14 md:top-24 left-1/2 transform -translate-x-1/2 p-3 rounded-xs z-50 py-4 md:py-0" : "hidden"}>
                 <div className="w-full flex flex-row justify-between">
-                    <p className="text-center md:text-2xl font-extrabold text-black ml-5">Where are you located?</p>
+                    <p className="text-center md:text-2xl font-extrabold text-black ml-5">{location ? 'Make payment' : `Where are you located?` }</p>
 
                     <img src={X} onClick={() => setcheckOut(false)} className="w-[40px] hover:bg-gray-300 active:bg-gray-600 transition-all duration-300"/>
                 </div>
@@ -107,70 +131,81 @@ function Cart(){
 
                 <div className="flex flex-col items-center md:flex-row gap-4 mt-5 transition-all duration-300">                   
                     <div className="">
-                        <div className="flex flex-col border border-black rounded-xl">
-                            <div className="ml-6 font-bold">Add Shipping Location</div>
+                        {loading && (
+                            <div className="flex justify-center items-center md:mr-60 ">
+                                <ClipLoader />
+                                <Toaster position="top-right"/>
+                            </div>
+                            
+                        )}
 
-                            <form  onSubmit={handleSubmit} className="mt-5 md:ml-6 flex flex-col gap-2 p-5 md:p-2 ">
-                                <div className="flex flex-col md:flex-row gap-2 ">
-                                    <label className="flex flex-col">
-                                        First Name:
-                                        <input 
-                                            name="FirstName"
-                                            value={Ldata.FirstName}
-                                            type="text"
-                                            className="w-[200px] h-[30px] border border-black pl-2"
-                                            placeholder=" e.g Uche"
-                                            onChange={handleChange}
-                                        />
-                                    </label>
-
-                                    <label className="flex flex-col">
-                                        Last Name:
-                                        <input 
-                                            name="LastName"
-                                            value={Ldata.LastName}
-                                            type="text"
-                                            className="w-[200px] h-[30px] border border-black pl-2"
-                                            onChange={handleChange}
-                                            placeholder="e.g Abu"
-                                        />
-                                    </label>
-                                </div>
-
-                                <div>
-                                    <label className="flex flex-col">
-                                        Full Street Address:
-                                        <input 
-                                            name="StreetAddress"
-                                            value={Ldata.StreetAddress}
-                                            type="text"
-                                            className="w-[300px] h-[30px] border border-black pl-2"
-                                            onChange={handleChange}
-                                            placeholder="e.g 12, mope road, Sangotedo, Ajah"
-                                        />
-                                    </label>
-                                </div>
-
-                                <div>
-                                    <label className="flex flex-col">
-                                        State:
-                                        <input 
-                                            name="State"
-                                            value={Ldata.State}
-                                            type="text"
-                                            className="w-[200px] h-[30px] border border-black pl-2"
-                                            onChange={handleChange}
-                                            placeholder="e.g Lagos"
-                                        />
-                                    </label>
-                                </div>
+                        {!loading && (
+                            <div className={location ? 'hidden' : `flex flex-col border border-black rounded-xl` }>
+                                <div className="ml-6 font-bold">Add Shipping Location</div>
 
                                 
-                                <div className="flex justify-center ">
-                                    <button className="bg-black text-white hover:bg-gray-700 active:bg-gray-900 font-semibold p-2 rounded-2xl transition-all duration-300">Submit</button>
-                                </div>
-                            </form>
-                        </div>
+                                <form  onSubmit={handleSubmit} className="mt-5 md:ml-6 flex flex-col gap-2 p-5 md:p-2 ">
+                                    <div className="flex flex-col md:flex-row gap-2 ">
+                                        <label className="flex flex-col">
+                                            First Name:
+                                            <input 
+                                                name="FirstName"
+                                                value={Ldata.FirstName}
+                                                type="text"
+                                                className="w-[200px] h-[30px] border border-black pl-2"
+                                                placeholder=" e.g Uche"
+                                                onChange={handleChange}
+                                            />
+                                        </label>
+
+                                        <label className="flex flex-col">
+                                            Last Name:
+                                            <input 
+                                                name="LastName"
+                                                value={Ldata.LastName}
+                                                type="text"
+                                                className="w-[200px] h-[30px] border border-black pl-2"
+                                                onChange={handleChange}
+                                                placeholder="e.g Abu"
+                                            />
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        <label className="flex flex-col">
+                                            Full Street Address:
+                                            <input 
+                                                name="StreetAddress"
+                                                value={Ldata.StreetAddress}
+                                                type="text"
+                                                className="w-[300px] h-[30px] border border-black pl-2"
+                                                onChange={handleChange}
+                                                placeholder="e.g 12, mope road, Sangotedo, Ajah"
+                                            />
+                                        </label>
+                                    </div>
+
+                                    <div>
+                                        <label className="flex flex-col">
+                                            State:
+                                            <input 
+                                                name="State"
+                                                value={Ldata.State}
+                                                type="text"
+                                                className="w-[200px] h-[30px] border border-black pl-2"
+                                                onChange={handleChange}
+                                                placeholder="e.g Lagos"
+                                            />
+                                        </label>
+                                    </div>
+
+                                    
+                                    <div className="flex justify-center ">
+                                        <button className="bg-black text-white hover:bg-gray-700 active:bg-gray-900 font-semibold p-2 rounded-2xl transition-all duration-300">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex flex-col gap-7 border py-3 items-center w-[300px] border-black rounded-2xl ">
