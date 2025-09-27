@@ -41,12 +41,7 @@ function Homepage() {
             productImg: BlackSnapBack,
             productDesc: "--Black--",
         }, 
-        {
-            id: 4, 
-            productName: "OG SkullCap",
-            productImg: OGSkullCap,
-            productDesc: "First Edition",
-        },
+       
     ]
 
     const [selectedPic, setSelectedPic] = useState(null);
@@ -64,22 +59,22 @@ function Homepage() {
                 {productdisp.map((product) => (
                     <motion.div
                         key={product.id}
-                        className="flex flex-col gap-3 justify-center items-center bg-white w-[250px] h-[420px] rounded-4xl relative bottom-0 hover:bottom-6 transition-all duration-500"
+                        className="flex flex-col gap-3 justify-center items-center bg-white w-[200px] h-[300px] rounded-4xl relative bottom-0 hover:bottom-6 transition-all duration-500"
                         initial={{opacity:0, y:50}}
                         animate={{opacity:1, y:0}}
                         transition={{duration:1}}
                     >
-                        <div className=" flex justify-center items-center w-[250px]  h-[250px] ">
-                            <img src={product.productImg} alt=""  className="w-[150px] rounded-2xl"/>
+                        <div className=" flex justify-center items-center w-[150px]  h-[150px] ">
+                            <img src={product.productImg} alt=""  className="w-[100px] rounded-2xl"/>
                         </div>
 
                         <div className="flex flex-col justify-center items-center gap-3">
-                            <p className="font-extrabold text-2xl">{product.productName}</p>
+                            <p className="font-extrabold ">{product.productName}</p>
                             <p className="text-gray-500 font-bold">{product.productDesc}</p>
                         </div>
 
                         <Link to="/shop">
-                            <button className="bg-black text-white w-32 h-10 font-bold rounded-full hover:bg-gray-600 transition-all duration-500">SHOP NOW</button>
+                            <button className="bg-black text-white w-20 h-6 font-bold rounded-full hover:bg-gray-600 transition-all duration-500">SHOP NOW</button>
                         </Link>
                         
                     </motion.div>
