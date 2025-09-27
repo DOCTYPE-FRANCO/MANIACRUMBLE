@@ -134,7 +134,7 @@ function Cart(){
                         {loading && (
                             <div className="flex justify-center items-center md:mr-60 ">
                                 <ClipLoader />
-                                <Toaster position="top-right"/>
+                                
                             </div>
                             
                         )}
@@ -235,6 +235,7 @@ function Cart(){
                 
 
             </div>
+            <Toaster position="top-right"/>
         </div>
     );
 }
