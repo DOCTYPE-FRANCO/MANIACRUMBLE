@@ -30,17 +30,19 @@ export function CartProvider  ({ children }) {
 
     function removeFromCart(itemId) {
         setItems(items => items.filter(item => item.id !== itemId));
-        setNumber(number - 1)
+        setNumber(number - 1);
     }
 
     function increment(id){
         setItems(items.map(item => item.id === id ? { ...item, quantity: item.quantity + 1 } : item));
+        setNumber(number + 1);
     };
 
     function decrement (id) {
         setItems(items.map(item => 
             item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
         ));
+        setNumber(number - 1);
     };
 
 

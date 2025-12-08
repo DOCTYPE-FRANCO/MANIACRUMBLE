@@ -113,7 +113,7 @@ function Cart(){
                         </div>
 
                         <div className={isEmpty? "hidden  mt-16" : ""}>
-                            <button onClick={() => setcheckOut(true)} className=" text-black bg-white font-bold p-3 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900">PROCEED TO PAY</button>
+                            <button onClick={() => setcheckOut(true)} className=" text-black bg-white font-bold p-3 md:p-2 text-center rounded-xl  hover:scale-110 active:bg-gray-800 transition-transform duration-300">PROCEED TO PAY</button>
                         </div>
                     </div>
                 </div>
