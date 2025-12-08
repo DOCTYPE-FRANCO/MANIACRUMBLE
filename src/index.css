@@ -3,3 +3,9 @@
 body{
   background-color: black;
 }
+
+@theme {
+  --font-sans: "Fredoka", sans-serif;
+  --font-body: "Sono", sans-serif;
+  --font-display: "Bebas Neue", sans-serif;
+}
