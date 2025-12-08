@@ -28,9 +28,11 @@ function Header() {
                     </div>
                 </Link>
 
-                <div className="flex justify-center items-center w-[40px] h-[40px] bg-white rounded-full hover:bg-gray-600">
-                    <img src={User} className="w-[20px] h-[20px]"/>
-                </div>
+               <Link to="/profile">
+                    <div className="flex justify-center items-center w-[40px] h-[40px] bg-white rounded-full hover:bg-gray-600">
+                        <img src={User} className="w-[20px] h-[20px]"/>
+                    </div>
+               </Link>
                 
             </div>
         </div>
