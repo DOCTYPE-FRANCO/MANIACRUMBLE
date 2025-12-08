@@ -1,8 +1,8 @@
 import React, {useContext, useState, useEffect} from "react";
 import { CartContext }  from "./CartContext";
 import { ClipLoader } from "react-spinners";
-import X from "./assets/Xicon.svg"
 import { Toaster, toast } from "react-hot-toast";
+import { X } from "lucide-react";
 
 function Cart(){
     
@@ -124,7 +124,7 @@ function Cart(){
                 <div className="w-full flex flex-row justify-between">
                     <p className="text-center md:text-2xl font-extrabold text-black ml-5">{location ? 'Make payment' : `Where are you located?` }</p>
 
-                    <img src={X} onClick={() => setcheckOut(false)} className="w-[40px] hover:bg-gray-300 active:bg-gray-600 transition-all duration-300"/>
+                    <X onClick={() => setcheckOut(false)} />
                 </div>
 
                
