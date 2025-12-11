@@ -102,7 +102,7 @@ function Profile(){
 
                 <form onSubmit={hasAccount ? handleLogin :  handleSignup} className="flex flex-col gap-4">
                     <div className="flex flex-col gap-3">
-                        <label className="font-bold text-black">MATRIC NUMBER:</label>
+                        <label className="font-bold text-black">NAME:</label>
                         <input
                             type="text"
                             name="Name"
