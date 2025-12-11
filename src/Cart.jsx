@@ -120,7 +120,7 @@ function Cart(){
                 
             </div>
 
-            <div className={checkOut ? "flex flex-col  items-center fixed w-[400px] h-[820px] md:w-[850px] md:h-[420px] bg-white top-14 md:top-24 left-1/2 transform -translate-x-1/2 p-3 rounded-xs z-50 py-4 md:py-0" : "hidden"}>
+            <div className={checkOut ? "pt-7 flex flex-col  items-center fixed w-[400px] h-[850px] md:w-[850px] md:h-[420px] bg-white top-14 md:top-24 left-1/2 transform -translate-x-1/2 p-3 rounded-xs z-50 py-4 md:py-0" : "hidden"}>
                 <div className="w-full flex flex-row justify-between">
                     <p className="text-center md:text-2xl font-extrabold text-black ml-5 pt-3">{location ? 'Make payment' : `Where are you located?` }</p>
 
