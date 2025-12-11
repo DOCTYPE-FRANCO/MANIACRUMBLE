@@ -6,7 +6,7 @@ import {motion} from "framer-motion";
 function HeroSection() {
     return (
         <div className="flex flex-col md:flex-row md:gap-[150px] gap-10 justify-center items-center mt-32 md:mt-2">
-            <div className="flex flex-col justify-center gap-4 w-full items-center">
+            <div className="flex flex-col justify-center gap-4  items-center">
                 <p className="text-4xl md:text-5xl text-gray-500 font-bold ">
                     <Typewriter 
                         options={{
