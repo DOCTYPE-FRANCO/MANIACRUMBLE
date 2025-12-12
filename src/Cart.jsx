@@ -3,6 +3,7 @@ import { CartContext }  from "./CartContext";
 import { ClipLoader } from "react-spinners";
 import { Toaster, toast } from "react-hot-toast";
 import { X } from "lucide-react";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
 
 function Cart(){
     
@@ -120,121 +121,146 @@ function Cart(){
                 
             </div>
 
-            <div className={checkOut ? "pt-7 flex flex-col  items-center fixed w-[400px] h-[850px] md:w-[850px] md:h-[420px] bg-white top-14 md:top-24 left-1/2 transform -translate-x-1/2 p-3 rounded-xs z-50 py-4 md:py-0" : "hidden"}>
-                <div className="w-full flex flex-row justify-between">
-                    <p className="text-center md:text-2xl font-extrabold text-black ml-5 pt-3">{location ? 'Make payment' : `Where are you located?` }</p>
+            <AnimatePresence mode="wait">
+                {checkOut && (
+                    <>
+                    {/* Backdrop Blur */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+                        onClick={() => setcheckOut(false)}
+                    />
 
-                    <X onClick={() => setcheckOut(false)} size={34} className="hover:scale-110 transition-transform" strokeWidth={2}/>
-                </div>
+                    {/* Modal */}
+                    <motion.div
+                        initial={{ opacity: 0, y: -50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 50 }}
+                        transition={{ duration: 0.3 }}
+                        className="pt-3 flex flex-col items-center fixed w-[400px] h-[850px] md:w-[850px] md:h-[420px] bg-white top-12 md:top-20 left-1/2 -translate-x-1/2 p-1 rounded-md z-50"
+                    >
+                        {/* HEADER */}
+                        <div className="w-full flex justify-between items-center">
+                        <p className="text-center md:text-2xl font-extrabold text-black ml-5 ">
+                            {location ? "Make payment" : "Where are you located?"}
+                        </p>
 
-               
+                        <X
+                            onClick={() => setcheckOut(false)}
+                            size={34}
+                            className="hover:scale-110 transition-transform cursor-pointer pr-2"
+                            strokeWidth={2}
+                        />
+                        </div>
 
-                <div className="flex flex-col items-center md:flex-row gap-4 mt-5 transition-all duration-300">                   
-                    <div className="">
-                        {loading && (
-                            <div className="flex justify-center items-center md:mr-60 ">
+                        {/* BODY */}
+                        <div className="flex flex-col md:flex-row gap-4 mt-5 transition-all duration-300">
+                        
+                        {/* LEFT SIDE – LOCATION FORM */}
+                        <div>
+                            {loading && (
+                            <div className="flex justify-center items-center md:mr-60">
                                 <ClipLoader />
-                                
                             </div>
-                            
-                        )}
+                            )}
 
-                        {!loading && (
-                            <div className={location ? 'hidden' : `flex flex-col border border-black rounded-xl` }>
-                                <div className="ml-6 font-bold">Add Shipping Location</div>
+                            {!loading && !location && (
+                            <div className="flex flex-col border border-black rounded-xl p-4">
+                                <p className="font-bold ml-2">Add Shipping Location</p>
 
-                                
-                                <form  onSubmit={handleSubmit} className="mt-5 md:ml-6 flex flex-col gap-2 p-5 md:p-2 ">
-                                    <div className="flex flex-col md:flex-row gap-2 ">
-                                        <label className="flex flex-col">
-                                            First Name:
-                                            <input 
-                                                name="FirstName"
-                                                value={Ldata.FirstName}
-                                                type="text"
-                                                className="w-[200px] h-[30px] border border-black pl-2"
-                                                placeholder=" e.g Uche"
-                                                onChange={handleChange}
-                                            />
-                                        </label>
+                                <form
+                                onSubmit={handleSubmit}
+                                className="mt-5 flex flex-col gap-3 ml-2"
+                                >
+                                <div className="flex flex-col md:flex-row gap-3">
+                                    <label className="flex flex-col">
+                                    First Name:
+                                    <input
+                                        name="FirstName"
+                                        value={Ldata.FirstName}
+                                        type="text"
+                                        placeholder="e.g Uche"
+                                        onChange={handleChange}
+                                        className="w-[200px] h-[30px] border border-black pl-2"
+                                    />
+                                    </label>
 
-                                        <label className="flex flex-col">
-                                            Last Name:
-                                            <input 
-                                                name="LastName"
-                                                value={Ldata.LastName}
-                                                type="text"
-                                                className="w-[200px] h-[30px] border border-black pl-2"
-                                                onChange={handleChange}
-                                                placeholder="e.g Abu"
-                                            />
-                                        </label>
-                                    </div>
+                                    <label className="flex flex-col">
+                                    Last Name:
+                                    <input
+                                        name="LastName"
+                                        value={Ldata.LastName}
+                                        type="text"
+                                        placeholder="e.g Abu"
+                                        onChange={handleChange}
+                                        className="w-[200px] h-[30px] border border-black pl-2"
+                                    />
+                                    </label>
+                                </div>
 
-                                    <div>
-                                        <label className="flex flex-col">
-                                            Full Street Address:
-                                            <input 
-                                                name="StreetAddress"
-                                                value={Ldata.StreetAddress}
-                                                type="text"
-                                                className="w-[300px] h-[30px] border border-black pl-2"
-                                                onChange={handleChange}
-                                                placeholder="e.g 12, mope road, Sangotedo, Ajah"
-                                            />
-                                        </label>
-                                    </div>
+                                <label className="flex flex-col">
+                                    Full Street Address:
+                                    <input
+                                    name="StreetAddress"
+                                    value={Ldata.StreetAddress}
+                                    type="text"
+                                    placeholder="e.g 12, Mope Road, Sangotedo, Ajah"
+                                    onChange={handleChange}
+                                    className="w-[300px] h-[30px] border border-black pl-2"
+                                    />
+                                </label>
 
-                                    <div>
-                                        <label className="flex flex-col">
-                                            State:
-                                            <input 
-                                                name="State"
-                                                value={Ldata.State}
-                                                type="text"
-                                                className="w-[200px] h-[30px] border border-black pl-2"
-                                                onChange={handleChange}
-                                                placeholder="e.g Lagos"
-                                            />
-                                        </label>
-                                    </div>
+                                <label className="flex flex-col">
+                                    State:
+                                    <input
+                                    name="State"
+                                    value={Ldata.State}
+                                    type="text"
+                                    placeholder="e.g Lagos"
+                                    onChange={handleChange}
+                                    className="w-[200px] h-[30px] border border-black pl-2"
+                                    />
+                                </label>
 
-                                    
-                                    <div className="flex justify-center ">
-                                        <button className="bg-black text-white hover:bg-gray-700 active:bg-gray-900 font-semibold p-2 rounded-2xl transition-all duration-300">Submit</button>
-                                    </div>
+                                <button className="bg-black text-white font-semibold p-2 rounded-2xl hover:bg-gray-700 active:bg-gray-900 transition">
+                                    Submit
+                                </button>
                                 </form>
                             </div>
-                        )}
-                    </div>
+                            )}
+                        </div>
 
-                    <div className="flex flex-col gap-7 border py-3 items-center w-[300px] border-black rounded-2xl ">
-                        <div>
+                        {/* RIGHT SIDE – CHECKOUT SUMMARY */}
+                        <div className="flex flex-col gap-7 border py-3 items-center w-[300px] border-black rounded-2xl">
                             <p className="text-black font-extrabold text-2xl p-5">CheckOut</p>
+
+                            {!isEmpty && (
+                            <>
+                                <p className="text-black font-bold">
+                                Sub-Total ({number} Items): ${total.toFixed(2)}
+                                </p>
+
+                                <p className="text-black font-bold">Tax: $10.00</p>
+
+                                <p className="text-black text-2xl font-bold px-10">
+                                Total: ${parseFloat(total.toFixed(2)) + 10}
+                                </p>
+
+                                <button className="text-white bg-black font-bold p-3 rounded-xl hover:bg-gray-600 active:bg-gray-900 transition">
+                                PROCEED TO PAY
+                                </button>
+                            </>
+                            )}
                         </div>
-
-                        <div className={isEmpty? "hidden" : ""}>
-                            <p className="text-black font-bold">Sub-Total({number} Items): ${total.toFixed(2)}</p>
                         </div>
+                    </motion.div>
+                    </>
+                )}
+                </AnimatePresence>
 
-                        <div className={isEmpty? "hidden" : ""}>
-                            <p className="text-black  font-bold">Tax: $10.00</p>
-                        </div>
-
-                        <div className={isEmpty? "hidden" : ""}>
-                            <p className="text-black bg-white text-2xl font-bold px-10">Total:  ${parseFloat(total.toFixed(2)) +  10}</p>
-                        </div>
-
-                        <div className={isEmpty? "hidden  mt-16" : ""}>
-                            <button className=" text-white bg-black font-bold p-3 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900 transition-all duration-300">PROCEED TO PAY</button>
-                        </div>
-                    </div>
-                </div>
-
-                
-                
-
-            </div>
             <Toaster position="top-right"/>
         </div>
     );
