@@ -140,7 +140,7 @@ function Cart(){
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 50 }}
                         transition={{ duration: 0.3 }}
-                        className="pt-3 flex flex-col items-center fixed w-[400px] h-[850px] md:w-[850px] md:h-[420px] bg-white top-12 md:top-20 left-1/2 -translate-x-1/2 p-1 rounded-md z-50"
+                        className="pt-3 flex flex-col items-center fixed w-[400px] h-[850px] md:w-[850px] md:h-[440px] bg-white top-12 md:top-20 left-1/2 -translate-x-1/2 p-1 rounded-md z-50"
                     >
                         {/* HEADER */}
                         <div className="w-full flex justify-between items-center">
@@ -246,7 +246,7 @@ function Cart(){
                                 <p className="text-black font-bold">Tax: $10.00</p>
 
                                 <p className="text-black text-2xl font-bold px-10">
-                                Total: ${parseFloat(total.toFixed(2)) + 10}
+                                    Total: ${parseFloat(total.toFixed(2)) + 10}
                                 </p>
 
                                 <button className="text-white bg-black font-bold p-3 rounded-xl hover:bg-gray-600 active:bg-gray-900 transition">
