@@ -1,267 +1,531 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { CartContext }  from "./CartContext";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, CreditCard, MapPin, Package, Truck, CheckCircle } from "lucide-react";
 import { ClipLoader } from "react-spinners";
-import { Toaster, toast } from "react-hot-toast";
-import { X } from "lucide-react";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import { useAuth } from "./AuthContext";
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+import { createOrder, createOrderItems, createAddress, getUserAddresses } from "./database";
+import { theme, modernCard, buttonStyles, glassmorphism } from "./theme";
+import { toast } from "react-hot-toast";
 
 function Cart(){
-    
-    const {items, removeFromCart, increment, decrement, number,isEmpty, total} = useContext(CartContext);
-
-    const [Ldata,setLdata] = useState({
-        FirstName: "",
-        LastName: "",
-        StreetAddress: "",
-        State: ""
-    });
-
+    const {items, removeFromCart, increment, decrement, number, isEmpty, total, clearCart} = useContext(CartContext);
+    const { user } = useAuth();
     const [checkOut, setcheckOut] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [paymentLoading, setPaymentLoading] = useState(false);
+    const [orderSuccess, setOrderSuccess] = useState(false);
+    const [addresses, setAddresses] = useState([]);
+    const [selectedAddress, setSelectedAddress] = useState(null);
+    const [showAddressForm, setShowAddressForm] = useState(false);
+    const [addressData, setAddressData] = useState({
+        firstName: "",
+        lastName: "",
+        streetAddress: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        country: "Nigeria"
+    });
 
-    const [location, setLocation] = useState(false);
+    // Redirect to login if not authenticated
+    if (!user) {
+        return (
+            <div className="flex flex-col justify-center items-center min-h-screen text-white px-4">
+                <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className="text-center"
+                >
+                    <h1 className="text-4xl font-bold mb-4">Please Sign In</h1>
+                    <p className="text-xl text-gray-300 mb-8">You need to be logged in to view your cart and checkout.</p>
+                    <button 
+                        onClick={() => window.location.href = '/profile'}
+                        className={buttonStyles.primary}
+                    >
+                        Sign In / Sign Up
+                    </button>
+                </motion.div>
+            </div>
+        );
+    }
 
     useEffect(() => {
-        if (loading){
-            const timer = setTimeout(() => {
-                setLoading(false)
-            }, 3000 )
-
-            return () => clearTimeout(timer);
+        if (user && checkOut) {
+            loadAddresses();
         }
+    }, [user, checkOut]);
 
-        
-    }, [loading])
+    const loadAddresses = async () => {
+        try {
+            const userAddresses = await getUserAddresses(user.id);
+            setAddresses(userAddresses);
+            if (userAddresses.length > 0) {
+                setSelectedAddress(userAddresses.find(addr => addr.is_default) || userAddresses[0]);
+            }
+        } catch (error) {
+            console.error('Failed to load addresses:', error);
+        }
+    };
 
-    function handleChange(e){
+    const handleAddressChange = (e) => {
         const {name, value} = e.target;
-        setLdata(prev => ({
+        setAddressData(prev => ({
             ...prev,
-            [name] : value
+            [name]: value
         }));
-    }
+    };
 
-    function handleSubmit(e){
-        e.preventDefault()
+    const handleAddressSubmit = async (e) => {
+        e.preventDefault();
         setLoading(true);
-        if(Ldata.FirstName !== ""){
-            toast.success("Location Added :)")
-            setLocation(true)
+        
+        try {
+            const newAddress = await createAddress({
+                user_id: user.id,
+                first_name: addressData.firstName,
+                last_name: addressData.lastName,
+                street_address: addressData.streetAddress,
+                city: addressData.city,
+                state: addressData.state,
+                zip_code: addressData.zipCode,
+                country: addressData.country,
+                is_default: addresses.length === 0
+            });
+            
+            setAddresses([...addresses, newAddress]);
+            setSelectedAddress(newAddress);
+            setShowAddressForm(false);
+            setAddressData({
+                firstName: "", lastName: "", streetAddress: "",
+                city: "", state: "", zipCode: "", country: "Nigeria"
+            });
+            toast.success("Address added successfully!");
+        } catch (error) {
+            toast.error("Failed to add address");
+        } finally {
+            setLoading(false);
         }
-        
-        setLdata({FirstName: "", LastName: "", StreetAddress: "", State: ""})
+    };
 
+    const config = {
+        public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY || 'FLWPUBK_TEST-SANDBOXDEMOKEY-X',
+        tx_ref: `MC-${Date.now()}`,
+        amount: parseFloat(total) + 10,
+        currency: 'USD',
+        payment_options: 'card,mobilemoney,ussd',
+        customer: {
+            email: user?.email || 'customer@example.com',
+            phone_number: selectedAddress?.phone || '1234567890',
+            name: user?.user_metadata?.name || `${selectedAddress?.first_name} ${selectedAddress?.last_name}` || 'Customer',
+        },
+        customizations: {
+            title: 'MANIACRUMBLE',
+            description: `Payment for ${number} item(s)`,
+            logo: '/src/assets/LOGO.png',
+        },
+    };
+
+    const handleFlutterPayment = useFlutterwave(config);
+
+    const processPayment = () => {
+        if (!user) {
+            toast.error('Please login to continue');
+            return;
+        }
+
+        if (!selectedAddress) {
+            toast.error('Please select a shipping address');
+            return;
+        }
+
+        setPaymentLoading(true);
         
+        handleFlutterPayment({
+            callback: async (response) => {
+                if (response.status === 'successful') {
+                    try {
+                        const orderData = {
+                            user_id: user.id,
+                            total: parseFloat(total) + 10,
+                            subtotal: parseFloat(total),
+                            tax: 10.00,
+                            status: 'processing',
+                            payment_status: 'paid',
+                            payment_intent_id: response.transaction_id,
+                            shipping_address_id: selectedAddress.id
+                        };
+
+                        const order = await createOrder(orderData);
+                        
+                        const orderItems = items.map(item => ({
+                            order_id: order.id,
+                            product_id: item.id,
+                            quantity: item.quantity,
+                            price: item.price
+                        }));
+
+                        await createOrderItems(orderItems);
+                        
+                        clearCart();
+                        setOrderSuccess(true);
+                        toast.success('Order placed successfully!');
+                    } catch (error) {
+                        toast.error('Failed to create order');
+                    }
+                } else {
+                    toast.error('Payment failed');
+                }
+                setPaymentLoading(false);
+                closePaymentModal();
+            },
+            onClose: () => {
+                setPaymentLoading(false);
+            },
+        });
+    };
+
+    if (orderSuccess) {
+        return (
+            <div className="flex flex-col justify-center items-center min-h-screen text-white px-4">
+                <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="text-center"
+                >
+                    <CheckCircle className="mx-auto mb-6 text-green-500" size={80} />
+                    <h1 className="text-4xl font-bold mb-4">Order Successful!</h1>
+                    <p className="text-xl text-gray-300 mb-8">Thank you for your purchase. Your order is being processed.</p>
+                    <div className="flex gap-4 justify-center">
+                        <button 
+                            onClick={() => window.location.href = '/orders'}
+                            className={buttonStyles.primary}
+                        >
+                            View Orders
+                        </button>
+                        <button 
+                            onClick={() => window.location.href = '/shop'}
+                            className={buttonStyles.secondary}
+                        >
+                            Continue Shopping
+                        </button>
+                    </div>
+                </motion.div>
+            </div>
+        );
     }
-    
 
-    return(
-        <div className="flex flex-col justify-center items-center  w-full mt-20 overflow-hidden">
-            <h1 className="text-4xl text-white font-extrabold mb-5">Cart</h1>
+    return (
+        <div className="min-h-screen pt-24 pb-10 px-4">
+            <div className="max-w-7xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center mb-12"
+                >
+                    <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 text-shadow-lg">
+                        SHOPPING CART
+                    </h1>
+                    <p className="text-xl text-gray-300">
+                        {isEmpty ? "Your cart is empty" : `${number} item(s) in your cart`}
+                    </p>
+                </motion.div>
 
-            <div className="flex flex-row  gap-20">
-                <div className="flex flex-col md:flex-row gap-20 justify-center ">
-                    <div className="flex flex-col justify-center items-center ">
-                        <div className="flex flex-col gap-10">
-                            {items.length === 0 ? (
-                                <p className="text-white font-bold text-2xl p-5">Your cart is empty</p>
-                            ) : 
-                            
-                            items.map((item) => (
-                                <div key={item.id} className="flex flex-row border border-white w-[390px] md:w-[500px] rounded-2xl gap-5 hover:scale-105 transition-all duration-300">
-                                    <div>
-                                        <img src={item.image} alt={item.name} className="w-[200px] sm:w-[150px] rounded-2xl m-5"/>
+                {isEmpty ? (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-center py-16"
+                    >
+                        <div className="text-8xl mb-6">🛒</div>
+                        <h2 className="text-3xl font-bold text-white mb-4">Your cart is empty</h2>
+                        <p className="text-gray-400 mb-8 text-lg">Start adding some awesome products!</p>
+                        <a href="/shop" className={buttonStyles.accent}>
+                            Browse Products
+                        </a>
+                    </motion.div>
+                ) : (
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2 space-y-4">
+                            {items.map((item, index) => (
+                                <motion.div
+                                    key={item.id}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                    className={`${modernCard.glass} p-6 hover:shadow-2xl transition-all`}
+                                >
+                                    <div className="flex flex-col sm:flex-row gap-6">
+                                        <div className="flex-shrink-0">
+                                            <img 
+                                                src={item.image} 
+                                                alt={item.name}
+                                                className="w-32 h-32 object-cover rounded-xl"
+                                            />
+                                        </div>
+
+                                        <div className="flex-1">
+                                            <h3 className="text-2xl font-bold text-white mb-2">{item.name}</h3>
+                                            <p className="text-gray-300 mb-4">{item.description}</p>
+                                            <div className="flex items-center gap-4 mb-4">
+                                                <span className="text-3xl font-bold text-white">${item.price}</span>
+                                                <span className="text-gray-400 capitalize px-3 py-1 bg-white/10 rounded-full text-sm">
+                                                    {item.category}
+                                                </span>
+                                            </div>
+
+                                            <div className="flex items-center gap-4">
+                                                <div className="flex items-center gap-3 bg-white/10 backdrop-blur-lg rounded-xl p-2">
+                                                    <button
+                                                        onClick={() => decrement(item.id)}
+                                                        className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg font-bold text-white transition-all"
+                                                    >
+                                                        -
+                                                    </button>
+                                                    <span className="text-white font-bold text-xl w-12 text-center">
+                                                        {item.quantity}
+                                                    </span>
+                                                    <button
+                                                        onClick={() => increment(item.id)}
+                                                        className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg font-bold text-white transition-all"
+                                                    >
+                                                        +
+                                                    </button>
+                                                </div>
+
+                                                <button
+                                                    onClick={() => removeFromCart(item.id)}
+                                                    className="px-6 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 font-bold rounded-xl transition-all border border-red-500/30"
+                                                >
+                                                    Remove
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div className="text-right">
+                                            <p className="text-gray-400 text-sm mb-1">Item Total</p>
+                                            <p className="text-2xl font-bold text-white">
+                                                ${(item.price * item.quantity).toFixed(2)}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="flex flex-col justify-center items-center gap-5 m-5">
-                                        <div className="flex justify-center items-center">
-                                            <p className="text-white font-extrabold text-3xl text-center">{item.name}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-white font-bold text-2xl text-center">${item.price}</p>
-                                        </div>
-                                        <div className=" flex flex-row gap-4">
-                                            <button className="text-black bg-white font-bold p-1 md:p-2 text-center rounded-xl  hover:bg-gray-600 active:bg-gray-900">Buy Now</button>
-                                            <button onClick={() => removeFromCart(item.id)} className="bg-white  font-bold rounded-xl p-1 md:p-2 text-center hover:bg-gray-600 active:bg-gray-900">Remove</button>
-                                            
-                                        </div>
-                                        <div className="flex flex-row gap-4">
-                                            <button onClick={()=>increment(item.id)} className="text-black bg-white text-2xl font-bold  px-3 text-center h-[40px] hover:bg-gray-600 active:bg-gray-900">+</button>
-                                            <p className="justify-center text-white text-center border border-white font-bold  p-2 inline-block w-[40px] h-[40px]">{item.quantity}</p>
-                                            <button onClick={()=>decrement(item.id)} className="text-black bg-white text-2xl font-bold p-1 px-3 text-center h-[40px] hover:bg-gray-600 active:bg-gray-900hover:bg-gray-600 active:bg-gray-900">-</button>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
+                                </motion.div>
                             ))}
                         </div>
-                    </div>
 
-                    <div className="flex flex-col gap-7 border-t items-center w-[500px] border-white rounded-2xl md:h-[500px] ">
-                        <div>
-                            <p className="text-white font-extrabold text-3xl p-5">CheckOut</p>
-                        </div>
-
-                        <div className={isEmpty? "hidden" : ""}>
-                            <p className="text-white text-2xl font-bold">Sub-Total({number} Items): ${total.toFixed(2)}</p>
-                        </div>
-
-                        <div className={isEmpty? "hidden" : ""}>
-                            <p className="text-white text-2xl font-bold">Tax: $10.00</p>
-                        </div>
-
-                        <div className={isEmpty? "hidden" : ""}>
-                            <p className="text-black bg-white text-3xl font-bold px-10">Total:  ${parseFloat(total.toFixed(2)) +  10}</p>
-                        </div>
-
-                        <div className={isEmpty? "hidden  mt-16" : ""}>
-                            <button onClick={() => setcheckOut(true)} className=" text-black bg-white font-bold p-3 md:p-2 text-center rounded-xl  hover:scale-110 active:bg-gray-800 transition-transform duration-300">PROCEED TO PAY</button>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-
-            <AnimatePresence mode="wait">
-                {checkOut && (
-                    <>
-                    {/* Backdrop Blur */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
-                        onClick={() => setcheckOut(false)}
-                    />
-
-                    {/* Modal */}
-                    <motion.div
-                        initial={{ opacity: 0, y: -50 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 50 }}
-                        transition={{ duration: 0.3 }}
-                        className="pt-3 flex flex-col items-center fixed w-[400px] h-[850px] md:w-[850px] md:h-[440px] bg-white top-12 md:top-20 left-1/2 -translate-x-1/2 p-1 rounded-md z-50"
-                    >
-                        {/* HEADER */}
-                        <div className="w-full flex justify-between items-center">
-                        <p className="text-center md:text-2xl font-extrabold text-black ml-5 ">
-                            {location ? "Make payment" : "Where are you located?"}
-                        </p>
-
-                        <X
-                            onClick={() => setcheckOut(false)}
-                            size={34}
-                            className="hover:scale-110 transition-transform cursor-pointer pr-2"
-                            strokeWidth={2}
-                        />
-                        </div>
-
-                        {/* BODY */}
-                        <div className="flex flex-col md:flex-row gap-4 mt-5 transition-all duration-300">
-                        
-                        {/* LEFT SIDE – LOCATION FORM */}
-                        <div>
-                            {loading && (
-                            <div className="flex justify-center items-center md:mr-60">
-                                <ClipLoader />
-                            </div>
-                            )}
-
-                            {!loading && !location && (
-                            <div className="flex flex-col border border-black rounded-xl p-4">
-                                <p className="font-bold ml-2">Add Shipping Location</p>
-
-                                <form
-                                onSubmit={handleSubmit}
-                                className="mt-5 flex flex-col gap-3 ml-2"
-                                >
-                                <div className="flex flex-col md:flex-row gap-3">
-                                    <label className="flex flex-col">
-                                    First Name:
-                                    <input
-                                        name="FirstName"
-                                        value={Ldata.FirstName}
-                                        type="text"
-                                        placeholder="e.g Uche"
-                                        onChange={handleChange}
-                                        className="w-[200px] h-[30px] border border-black pl-2"
-                                    />
-                                    </label>
-
-                                    <label className="flex flex-col">
-                                    Last Name:
-                                    <input
-                                        name="LastName"
-                                        value={Ldata.LastName}
-                                        type="text"
-                                        placeholder="e.g Abu"
-                                        onChange={handleChange}
-                                        className="w-[200px] h-[30px] border border-black pl-2"
-                                    />
-                                    </label>
+                        <div className="lg:col-span-1">
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className={`${modernCard.glass} p-6 sticky top-24`}
+                            >
+                                <h2 className="text-2xl font-bold text-white mb-6">Order Summary</h2>
+                                
+                                <div className="space-y-4 mb-6">
+                                    <div className="flex justify-between text-gray-300">
+                                        <span>Subtotal ({number} items)</span>
+                                        <span className="font-bold">${total.toFixed(2)}</span>
+                                    </div>
+                                    <div className="flex justify-between text-gray-300">
+                                        <span>Shipping</span>
+                                        <span className="font-bold">$10.00</span>
+                                    </div>
+                                    <div className="border-t border-white/20 pt-4">
+                                        <div className="flex justify-between text-white text-xl font-bold">
+                                            <span>Total</span>
+                                            <span>${(parseFloat(total) + 10).toFixed(2)}</span>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <label className="flex flex-col">
-                                    Full Street Address:
-                                    <input
-                                    name="StreetAddress"
-                                    value={Ldata.StreetAddress}
-                                    type="text"
-                                    placeholder="e.g 12, Mope Road, Sangotedo, Ajah"
-                                    onChange={handleChange}
-                                    className="w-[300px] h-[30px] border border-black pl-2"
-                                    />
-                                </label>
-
-                                <label className="flex flex-col">
-                                    State:
-                                    <input
-                                    name="State"
-                                    value={Ldata.State}
-                                    type="text"
-                                    placeholder="e.g Lagos"
-                                    onChange={handleChange}
-                                    className="w-[200px] h-[30px] border border-black pl-2"
-                                    />
-                                </label>
-
-                                <button className="bg-black text-white font-semibold p-2 rounded-2xl hover:bg-gray-700 active:bg-gray-900 transition">
-                                    Submit
+                                <button
+                                    onClick={() => {
+                                        if (!user) {
+                                            toast.error('Please login to checkout');
+                                            window.location.href = '/profile';
+                                            return;
+                                        }
+                                        setcheckOut(true);
+                                    }}
+                                    disabled={paymentLoading}
+                                    className={`${buttonStyles.accent} w-full`}
+                                >
+                                    {paymentLoading ? 'Processing...' : 'Proceed to Checkout'}
                                 </button>
-                                </form>
+
+                                <div className="mt-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
+                                    <p className="text-green-400 text-sm text-center font-bold">
+                                        🎉 Free shipping on orders over $50!
+                                    </p>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <AnimatePresence>
+                {checkOut && (
+                    <>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40"
+                            onClick={() => setcheckOut(false)}
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                        >
+                            <div className={`${modernCard.glass} w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8`}>
+                                <div className="flex items-center justify-between mb-6">
+                                    <h2 className="text-3xl font-bold text-white">Checkout</h2>
+                                    <button
+                                        onClick={() => setcheckOut(false)}
+                                        className="text-white/60 hover:text-white transition-colors"
+                                    >
+                                        <X size={32} />
+                                    </button>
+                                </div>
+
+                                <div className="mb-6">
+                                    <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                        <MapPin size={20} />
+                                        Shipping Address
+                                    </h3>
+                                    
+                                    {addresses.length > 0 ? (
+                                        <div className="space-y-3 mb-4">
+                                            {addresses.map((addr) => (
+                                                <div
+                                                    key={addr.id}
+                                                    onClick={() => setSelectedAddress(addr)}
+                                                    className={`p-4 rounded-xl cursor-pointer transition-all ${
+                                                        selectedAddress?.id === addr.id
+                                                            ? 'bg-purple-500/20 border-2 border-purple-500'
+                                                            : 'bg-white/10 border-2 border-white/20 hover:border-white/40'
+                                                    }`}
+                                                >
+                                                    <p className="text-white font-bold">
+                                                        {addr.first_name} {addr.last_name}
+                                                    </p>
+                                                    <p className="text-gray-300 text-sm">
+                                                        {addr.street_address}, {addr.city}, {addr.state}
+                                                    </p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : null}
+
+                                    <button
+                                        onClick={() => setShowAddressForm(!showAddressForm)}
+                                        className={buttonStyles.secondary}
+                                    >
+                                        {showAddressForm ? 'Cancel' : '+ Add New Address'}
+                                    </button>
+                                </div>
+
+                                {showAddressForm && (
+                                    <motion.form
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        onSubmit={handleAddressSubmit}
+                                        className="space-y-4 mb-6 p-4 bg-white/5 rounded-xl"
+                                    >
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <input
+                                                type="text"
+                                                name="firstName"
+                                                value={addressData.firstName}
+                                                onChange={handleAddressChange}
+                                                placeholder="First Name"
+                                                className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                required
+                                            />
+                                            <input
+                                                type="text"
+                                                name="lastName"
+                                                value={addressData.lastName}
+                                                onChange={handleAddressChange}
+                                                placeholder="Last Name"
+                                                className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                required
+                                            />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            name="streetAddress"
+                                            value={addressData.streetAddress}
+                                            onChange={handleAddressChange}
+                                            placeholder="Street Address"
+                                            className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                            required
+                                        />
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <input
+                                                type="text"
+                                                name="city"
+                                                value={addressData.city}
+                                                onChange={handleAddressChange}
+                                                placeholder="City"
+                                                className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                required
+                                            />
+                                            <input
+                                                type="text"
+                                                name="state"
+                                                value={addressData.state}
+                                                onChange={handleAddressChange}
+                                                placeholder="State"
+                                                className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                                required
+                                            />
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            disabled={loading}
+                                            className={buttonStyles.primary}
+                                        >
+                                            {loading ? 'Saving...' : 'Save Address'}
+                                        </button>
+                                    </motion.form>
+                                )}
+
+                                <div className="border-t border-white/20 pt-6">
+                                    <div className="mb-6">
+                                        <div className="flex justify-between text-white mb-2">
+                                            <span>Subtotal:</span>
+                                            <span className="font-bold">${total.toFixed(2)}</span>
+                                        </div>
+                                        <div className="flex justify-between text-white mb-2">
+                                            <span>Shipping:</span>
+                                            <span className="font-bold">$10.00</span>
+                                        </div>
+                                        <div className="flex justify-between text-white text-2xl font-bold">
+                                            <span>Total:</span>
+                                            <span>${(parseFloat(total) + 10).toFixed(2)}</span>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={processPayment}
+                                        disabled={!selectedAddress || paymentLoading}
+                                        className={`${buttonStyles.accent} w-full flex items-center justify-center gap-2`}
+                                    >
+                                        <CreditCard size={20} />
+                                        {paymentLoading ? 'Processing Payment...' : 'Pay with Flutterwave'}
+                                    </button>
+                                </div>
                             </div>
-                            )}
-                        </div>
-
-                        {/* RIGHT SIDE – CHECKOUT SUMMARY */}
-                        <div className="flex flex-col gap-7 border py-3 items-center w-[300px] border-black rounded-2xl">
-                            <p className="text-black font-extrabold text-2xl p-5">CheckOut</p>
-
-                            {!isEmpty && (
-                            <>
-                                <p className="text-black font-bold">
-                                Sub-Total ({number} Items): ${total.toFixed(2)}
-                                </p>
-
-                                <p className="text-black font-bold">Tax: $10.00</p>
-
-                                <p className="text-black text-2xl font-bold px-10">
-                                    Total: ${parseFloat(total.toFixed(2)) + 10}
-                                </p>
-
-                                <button className="text-white bg-black font-bold p-3 rounded-xl hover:bg-gray-600 active:bg-gray-900 transition">
-                                PROCEED TO PAY
-                                </button>
-                            </>
-                            )}
-                        </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
                     </>
                 )}
-                </AnimatePresence>
-
-            <Toaster position="top-right"/>
+            </AnimatePresence>
         </div>
     );
 }
