@@ -61,42 +61,7 @@ function Homepage() {
 
             <HeroSection />
 
-            <p className="text-white text-center text-3xl font-bold mt-30">--10% DISCOUNT SALES--</p>
-
-            <div className="flex flex-col justify-center items-center md:flex-row gap-4 mt-20">
-                {productdisp.map((product) => (
-                <motion.div
-                    key={product.id}
-                    className="flex flex-col gap-3 justify-center items-center bg-white w-[200px] h-[300px] rounded-4xl relative bottom-0 hover:bottom-6 transition-all duration-500"
-                    initial={{opacity:0, y:50}}
-                    animate={{opacity:1, y:0}}
-                    transition={{duration:1}}
-                >
-                    <div className="flex justify-center items-center w-[150px] h-[150px]">
-                        <img src={product.productImg} alt="" className="w-[100px] rounded-2xl"/>
-                    </div>
-
-                    {/* Product Info */}
-                    <div className="text-center space-y-3">
-                        <h3 className="text-xl font-bold text-white group-hover:text-gray-300 transition-colors duration-300">
-                            {product.name}
-                        </h3>
-                        <p className="text-gray-300 font-medium">{product.description}</p>
-                        <div className="flex items-center justify-center gap-2">
-                            <span className="text-2xl font-bold text-white">${product.price}</span>
-                        </div>
-                    </div>
-
-                    {/* CTA Button */}
-                    <Link to={`/product/${product.id}`} className="block mt-6">
-                        <button className={`${buttonStyles.accent} w-full flex items-center justify-center gap-2`}>
-                            <Zap size={16} />
-                            SHOP NOW
-                        </button>
-                    </Link>
-                </motion.div>
-            ))}
-            </div>
+            
 
             {/* Gallery Section */}
             <motion.div 
