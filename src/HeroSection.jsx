@@ -7,16 +7,18 @@ function HeroSection() {
     return (
         <div className="flex flex-col md:flex-row md:gap-[150px] gap-10 justify-center items-center mt-32 md:mt-2">
             <div className="flex flex-col justify-center gap-4  items-center hover:scale-105 transition-transform duration-500">
-                <p className="text-4xl md:text-5xl text-gray-500 font-bold ">
+                
+                <p className=" text-4xl md:text-6xl text-white font-extrabold">MANIAC RUMBLE</p>
+
+                <p className="text-xl md:text-3xl text-center text-gray-500 font-bold w-full">
                     <Typewriter 
                         options={{
-                            strings: ["Don't think. Jump!"],
+                            strings: ["Built in Resilience for the Lane Pavers"],
                             autoStart: true,
                             loop: true,
                         }}
                     />
                 </p>
-                <p className=" text-4xl md:text-6xl text-white font-extrabold">MANIACRUMBLE</p>
             </div>
             <div className="w-[300px] justify-center pt-10 hover:scale-105 transition-transform duration-500">
                 <motion.img

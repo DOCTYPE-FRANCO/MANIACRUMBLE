@@ -17,7 +17,7 @@ function Footer(){
                 </div>
             </div>
             <div className="flex justify-center items-center mt-10">
-                <p className="font-bold">© 2025 ManiaCrumble. All rights reserved.</p>
+                <p className="font-bold">© 2026 ManiaCrumble. All rights reserved.</p>
             </div>
         </div>
     );
