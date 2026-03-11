@@ -65,6 +65,11 @@ function Shop() {
             );
         }
 
+        // Price filter
+        filtered = filtered.filter(product => 
+            product.price >= priceRange[0] && product.price <= priceRange[1]
+        );
+
         // Category filter
         if (categoryFilter !== 'all') {
             filtered = filtered.filter(product => product.category === categoryFilter);
