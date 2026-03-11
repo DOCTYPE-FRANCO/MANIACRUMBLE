@@ -22,15 +22,28 @@ import OGSkullModel from "../Products/OGSkullcapmodel.jpg"
 import PinkSkullModel from "../Products/PinkSkullCapmodel.jpg"
 import SkullModels from "../Products/SkullCapModels.jpg"
 
+import RockBlackModel from "../Products/rockblackmodel.jpg"
+import RockBlackModel2 from "../Products/rockblackmodel2.jpg"
+import RockWhitekModel2 from "../Products/rockwhitemodel.jpg"
+
+import L1model from "../Products/l1models.JPG"
+
+import Lg from "../Products/Maniac Rumble Longsleeve black.JPG"
+
+import Jortmodel from "../Products/2-Patched Croc Jorts model.jpg"
+
+import alll from "../Products/alll model.JPG"
+
+
 function Homepage() {
     const [selectedPic, setSelectedPic] = useState(null);
     const [featuredProducts, setFeaturedProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const galleryImages = [
-        BeanieModel, BlackSkullModel, BlondeSnapModel, BlackSkullModel2,
-        PinkSkullModel, OGSkullModel, BlackSnapModel, BlueSnapModel,
-        CamoSkullModel, SkullModels
+        BlackSkullModel, RockBlackModel2, Lg, BlackSkullModel2,
+        Jortmodel, OGSkullModel, RockBlackModel, L1model,
+        CamoSkullModel, RockWhitekModel2, alll
     ];
 
     useEffect(() => {
