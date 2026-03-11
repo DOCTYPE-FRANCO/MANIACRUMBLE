@@ -10,7 +10,22 @@ import PinkWave from "../Products/PinkSkullCap.jpg"
 import GrayWave from "../Products/GraySkullCap.jpg"
 import OGSkullCap from "../Products/OGSkullcap.jpg"
 import OGSkullCapPink from "../Products/SkullCappink.jpg"
-import BlueWave from "../Products/BlueSkullCap.jpg"
+
+
+import EarthBeige from "../Products/Earth Skull Hat beige.jpg"
+import EarthBlack from "../Products/Earth Skull Hat black.JPG"
+import EarthCamo from "../Products/Earth Skull Hat camo.JPG"
+import EarthGreen from "../Products/Earth Skull Hat green.JPG"
+
+import Rockstarblack from "../Products/Rockstar Skull Hat black.jpg"
+import Rockstarwhite from "../Products/Rockstar Skull Hat white.jpg"
+
+import Longsleeveblack from "../Products/Maniac Rumble Longsleeve black.JPG"
+import Longsleevewhite from "../Products/Maniac Rumble Longsleeve white.JPG"
+
+import Jorts from "../Products/2-Patched Croc Jorts model.jpg"
+
+import Armlessblack from "../Products\Maniac Rumble Armless black.HEIC"
 
 export const snapbacks = [
     {
@@ -72,6 +87,8 @@ export const beanies = [
     }
 ];
 
+
+
 export const waveCaps = [
     {
         id: "W1",
@@ -127,6 +144,50 @@ export const waveCaps = [
         quantity: 6,
         category: "wavecap"
     }
+];
+
+export const earthSkullhats = [
+    {
+        id: "E1",
+        name: "Earth Skull hat",
+        description: "Color - Beige",
+        price: 10000,
+        image: EarthBeige,
+        quantity: 20,
+        category: "beanie"
+    },
+
+    {
+        id: "E2",
+        name: "Earth Skull hat",
+        description: "Color - Black",
+        price: 10000,
+        image: EarthBlack,
+        quantity: 20,
+        category: "beanie"
+    },
+
+    {
+        id: "E3",
+        name: "Earth Skull hat",
+        description: "Color - Camo",
+        price: 10000,
+        image: EarthCamo,
+        quantity: 20,
+        category: "beanie"
+    },
+
+    {
+        id: "E4",
+        name: "Earth Skull hat",
+        description: "Color - Green",
+        price: 10000,
+        image: EarthGreen,
+        quantity: 20,
+        category: "beanie"
+    },
+
+    
 ];
 
 export const allProducts = [...snapbacks, ...beanies, ...waveCaps];

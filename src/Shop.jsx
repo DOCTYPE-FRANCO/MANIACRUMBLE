@@ -70,10 +70,7 @@ function Shop() {
             filtered = filtered.filter(product => product.category === categoryFilter);
         }
 
-        // Price filter
-        filtered = filtered.filter(product => 
-            product.price >= priceRange[0] && product.price <= priceRange[1]
-        );
+
 
         // Sort
         filtered.sort((a, b) => {
