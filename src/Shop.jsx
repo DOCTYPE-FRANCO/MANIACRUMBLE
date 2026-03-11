@@ -330,7 +330,7 @@ function Shop() {
                                     <p className="text-gray-300 mb-3 line-clamp-2">{product.description}</p>
                                     
                                     <div className="flex items-center justify-between mb-4">
-                                        <span className="text-2xl font-bold text-white">${product.price}</span>
+                                        <span className="text-2xl font-bold text-white">₦{product.price}</span>
                                         <span className="text-sm text-gray-400 capitalize px-2 py-1 bg-white/10 rounded-full">
                                             {product.category}
                                         </span>
