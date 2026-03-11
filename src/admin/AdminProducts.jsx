@@ -161,7 +161,7 @@ function AdminProducts() {
         });
     };
 
-    const categories = ['all', 'snapback', 'beanie', 'wavecap'];
+    const categories = ['all', 'snapback', 'beanie', 'wavecap', 'skullcap'];
 
     if (loading && products.length === 0) {
         return (

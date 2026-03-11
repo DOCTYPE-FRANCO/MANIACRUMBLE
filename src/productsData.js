@@ -25,7 +25,7 @@ import Longsleevewhite from "../Products/Maniac Rumble Longsleeve white.JPG"
 
 import Jorts from "../Products/2-Patched Croc Jorts model.jpg"
 
-import Armlessblack from "../Products\Maniac Rumble Armless black.HEIC"
+import Armlessblack from "../Products/Maniac Rumble Armless black.HEIC"
 
 export const snapbacks = [
     {
