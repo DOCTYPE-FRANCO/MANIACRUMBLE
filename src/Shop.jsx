@@ -18,7 +18,7 @@ function Shop() {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('all');
-    const [priceRange, setPriceRange] = useState([0, 100000]);
+    const [priceRange, setPriceRange] = useState([0, 100]);
     const [sortBy, setSortBy] = useState('name');
     const [viewMode, setViewMode] = useState('grid');
     const [showFilters, setShowFilters] = useState(false);
@@ -65,17 +65,15 @@ function Shop() {
             );
         }
 
-        // Price filter
-        filtered = filtered.filter(product => 
-            product.price >= priceRange[0] && product.price <= priceRange[1]
-        );
-
         // Category filter
         if (categoryFilter !== 'all') {
             filtered = filtered.filter(product => product.category === categoryFilter);
         }
 
-
+        // Price filter
+        filtered = filtered.filter(product => 
+            product.price >= priceRange[0] && product.price <= priceRange[1]
+        );
 
         // Sort
         filtered.sort((a, b) => {
@@ -242,16 +240,16 @@ function Shop() {
                                         <input
                                             type="range"
                                             min="0"
-                                            max="100000"
+                                            max="100"
                                             value={priceRange[0]}
                                             onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
                                             className="flex-1"
                                         />
-                                        <span className="text-white">₦{priceRange[0]} - ₦{priceRange[1]}</span>
+                                        <span className="text-white">${priceRange[0]} - ${priceRange[1]}</span>
                                         <input
                                             type="range"
                                             min="0"
-                                            max="100000"
+                                            max="100"
                                             value={priceRange[1]}
                                             onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
                                             className="flex-1"
@@ -332,7 +330,7 @@ function Shop() {
                                     <p className="text-gray-300 mb-3 line-clamp-2">{product.description}</p>
                                     
                                     <div className="flex items-center justify-between mb-4">
-                                        <span className="text-2xl font-bold text-white">₦{product.price}</span>
+                                        <span className="text-2xl font-bold text-white">${product.price}</span>
                                         <span className="text-sm text-gray-400 capitalize px-2 py-1 bg-white/10 rounded-full">
                                             {product.category}
                                         </span>

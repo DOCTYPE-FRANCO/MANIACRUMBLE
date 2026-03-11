@@ -161,7 +161,7 @@ function AdminProducts() {
         });
     };
 
-    const categories = ['all', 'snapback', 'beanie', 'wavecap', 'skullcap'];
+    const categories = ['all', 'snapback', 'beanie', 'wavecap'];
 
     if (loading && products.length === 0) {
         return (
@@ -270,7 +270,7 @@ function AdminProducts() {
                             <h3 className="text-lg font-bold text-black mb-1">{product.name}</h3>
                             <p className="text-gray-600 text-sm mb-2 line-clamp-2">{product.description}</p>
                             <div className="flex justify-between items-center">
-                                <span className="text-2xl font-bold text-black">₦{product.price}</span>
+                                <span className="text-2xl font-bold text-black">${product.price}</span>
                                 <span className="text-sm text-gray-500 capitalize">{product.category}</span>
                             </div>
                         </div>
