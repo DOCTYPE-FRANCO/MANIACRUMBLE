@@ -242,16 +242,16 @@ function Shop() {
                                         <input
                                             type="range"
                                             min="0"
-                                            max="100"
+                                            max="100000"
                                             value={priceRange[0]}
                                             onChange={(e) => setPriceRange([parseInt(e.target.value), priceRange[1]])}
                                             className="flex-1"
                                         />
-                                        <span className="text-white">${priceRange[0]} - ${priceRange[1]}</span>
+                                        <span className="text-white">₦{priceRange[0]} - ₦{priceRange[1]}</span>
                                         <input
                                             type="range"
                                             min="0"
-                                            max="100"
+                                            max="100000"
                                             value={priceRange[1]}
                                             onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
                                             className="flex-1"
