@@ -271,9 +271,9 @@ function Shop() {
             </div>
 
             {/* Products Grid */}
-            <div className={`grid gap-6 ${
+            <div className={`grid gap-8 ${
                     viewMode === 'grid' 
-                        ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
+                        ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
                         : 'grid-cols-1'
                 }`}>
                 {filteredProducts.length === 0 ? (
@@ -293,7 +293,7 @@ function Shop() {
                             className="group relative"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-gray-600/20 to-gray-700/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-500" />
-                            <div className={`${modernCard.glass} relative p-6 hover:shadow-2xl transition-all duration-500 group-hover:border-white/50 ${
+                            <div className={`${modernCard.glass} relative p-8 hover:shadow-2xl transition-all duration-500 group-hover:border-white/50 ${
                                 viewMode === 'list' ? 'flex items-center gap-6' : ''
                             }`}>
                                 {/* Wishlist Button */}
@@ -310,12 +310,16 @@ function Shop() {
                                 {/* Product Image */}
                                 <Link to={`/product/${product.id}`} className={viewMode === 'list' ? 'flex-shrink-0' : 'block'}>
                                     <div className={`relative overflow-hidden rounded-2xl ${
-                                        viewMode === 'list' ? 'w-32 h-32' : 'w-full h-48 mb-4'
+                                        viewMode === 'list' ? 'w-32 h-32' : 'w-full h-80 mb-6'
                                     }`}>
                                         <img 
                                             src={product.image} 
                                             alt={product.name}
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                            loading="lazy"
+                                            onError={(e) => {
+                                                e.target.src = '/api/placeholder/400/400';
+                                            }}
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                                     </div>
