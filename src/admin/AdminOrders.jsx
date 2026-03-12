@@ -206,7 +206,7 @@ function AdminOrders() {
                                             </span>
                                         </td>
                                         <td className="py-4 px-6">
-                                            <span className="font-semibold text-black">${order.total}</span>
+                                            <span className="font-semibold text-black">₦{order.total}</span>
                                         </td>
                                         <td className="py-4 px-6">
                                             <div className="flex items-center gap-2">
@@ -315,9 +315,9 @@ function AdminOrders() {
                                                 <p className="text-gray-600">Quantity: {item.quantity}</p>
                                             </div>
                                             <div className="text-right">
-                                                <p className="font-semibold">${item.price}</p>
+                                                <p className="font-semibold">₦{item.price}</p>
                                                 <p className="text-sm text-gray-600">
-                                                    ${(item.price * item.quantity).toFixed(2)} total
+                                                    ₦{(item.price * item.quantity).toFixed(2)} total
                                                 </p>
                                             </div>
                                         </div>
@@ -327,7 +327,7 @@ function AdminOrders() {
 
                             <div className="border-t pt-4">
                                 <div className="flex justify-between items-center text-lg font-bold">
-                                    <span>Total: ${selectedOrder.total}</span>
+                                    <span>Total: ₦{selectedOrder.total}</span>
                                     <div className="flex gap-2">
                                         <select
                                             value={selectedOrder.status}

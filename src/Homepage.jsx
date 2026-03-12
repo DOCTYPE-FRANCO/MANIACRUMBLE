@@ -11,16 +11,16 @@ import { getFeaturedProducts } from "./database.js";
 import { theme, modernCard, buttonStyles, staggerContainer, staggerItem } from "./theme.js";
 import { Star, Zap, ArrowRight, ChevronRight, TrendingUp, Award, Shield, Truck } from "lucide-react";
 
-import BeanieModel from "../Products/BeanieModel.jpg"
-import BlackSkullModel from "../Products/blackSkullcapmodel.jpg"
-import BlackSkullModel2 from "../Products/BlackSkullCapmodel2.jpg"
-import BlackSnapModel from "../Products/BlackSnapbackmodel.jpg"
-import BlondeSnapModel from "../Products/BlondeSnapbackmodel.jpg"
-import BlueSnapModel from "../Products/Bluesnapbackmodel.jpg"
-import CamoSkullModel from "../Products/CamoSkullCapModel.jpg"
-import OGSkullModel from "../Products/OGSkullcapmodel.jpg"
-import PinkSkullModel from "../Products/PinkSkullCapmodel.jpg"
-import SkullModels from "../Products/SkullCapModels.jpg"
+import BeanieModel from "/Products/BeanieModel.jpg"
+import BlackSkullModel from "/Products/blackSkullcapmodel.jpg"
+import BlackSkullModel2 from "/Products/BlackSkullCapmodel2.jpg"
+import BlackSnapModel from "/Products/BlackSnapbackmodel.jpg"
+import BlondeSnapModel from "/Products/BlondeSnapbackmodel.jpg"
+import BlueSnapModel from "/Products/Bluesnapbackmodel.jpg"
+import CamoSkullModel from "/Products/CamoSkullCapModel.jpg"
+import OGSkullModel from "/Products/OGSkullcapmodel.jpg"
+import PinkSkullModel from "/Products/PinkSkullCapmodel.jpg"
+import SkullModels from "/Products/SkullCapModels.jpg"
 
 function Homepage() {
     const [selectedPic, setSelectedPic] = useState(null);
