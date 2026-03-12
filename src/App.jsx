@@ -17,6 +17,7 @@ import AdminDashboard from './admin/AdminDashboard'
 import AdminProducts from './admin/AdminProducts'
 import AdminOrders from './admin/AdminOrders'
 import ProtectedRoute from './ProtectedRoute'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
               </Routes>
             </div>
             <Footer />
+            <ScrollToTop />
             <Toaster position="top-right"/>
           </div>
         </CartProvider>

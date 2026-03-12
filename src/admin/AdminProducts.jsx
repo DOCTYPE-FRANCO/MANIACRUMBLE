@@ -316,6 +316,10 @@ function AdminProducts() {
                                 src={product.image} 
                                 alt={product.name}
                                 className="w-full h-48 object-cover rounded-lg"
+                                loading="lazy"
+                                onError={(e) => {
+                                    e.target.src = '/api/placeholder/300/200';
+                                }}
                             />
                             <div className="absolute top-2 right-2 flex gap-1">
                                 {product.featured && (
@@ -513,6 +517,10 @@ function AdminProducts() {
                                                     src={imagePreview} 
                                                     alt="Preview" 
                                                     className="w-32 h-32 object-cover rounded-lg border-2 border-gray-300"
+                                                    loading="lazy"
+                                                    onError={(e) => {
+                                                        e.target.src = '/api/placeholder/128/128';
+                                                    }}
                                                 />
                                                 <button
                                                     type="button"
