@@ -188,7 +188,10 @@ INSERT INTO products (id, name, description, price, image, category, quantity, f
 ('W3', 'Pink Wave Cap', 'Vibrant pink wave cap.', 6999.00, '/Products/PinkSkullCap.jpg', 'wavecap', 14, false),
 ('W4', 'Gray Wave Cap', 'Subtle gray wave cap.', 6999.00, '/Products/GraySkullCap.jpg', 'wavecap', 10, false),
 ('W5', 'OG Wave Cap', 'Limited Edition original wave cap.', 6999.00, '/Products/OGSkullcap.jpg', 'wavecap', 7, false),
-('W6', 'OG Wave Cap (Pink)', 'Limited Edition pink original wave cap.', 6999.00, '/Products/SkullCappink.jpg', 'wavecap', 6, false);
+('W6', 'OG Wave Cap (Pink)', 'Limited Edition pink original wave cap.', 6999.00, '/Products/SkullCappink.jpg', 'wavecap', 6, false),
+('WR1', 'Black T-Shirt', 'Premium cotton t-shirt with logo.', 12999.00, '/Products/BlackTshirt.jpg', 'wears', 20, false),
+('WR2', 'White Hoodie', 'Comfortable hoodie with embroidered design.', 18999.00, '/Products/WhiteHoodie.jpg', 'wears', 15, false),
+('WR3', 'Black Hoodie', 'Premium black hoodie.', 18999.00, '/Products/BlackHoodie.jpg', 'wears', 12, false);
 
 -- Create admin user (replace with your email)
 -- INSERT INTO auth.users (email, encrypted_password, email_confirmed_at, role) 

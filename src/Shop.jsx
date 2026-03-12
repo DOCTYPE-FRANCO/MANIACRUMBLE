@@ -119,7 +119,8 @@ function Shop() {
         { value: 'all', label: 'All Products' },
         { value: 'snapback', label: 'Snapbacks' },
         { value: 'beanie', label: 'Beanies' },
-        { value: 'wavecap', label: 'Wave Caps' }
+        { value: 'wavecap', label: 'Wave Caps' },
+        { value: 'wears', label: 'Wears' }
     ];
 
     const sortOptions = [

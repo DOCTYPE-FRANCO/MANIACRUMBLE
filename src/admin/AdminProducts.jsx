@@ -32,7 +32,7 @@ function AdminProducts() {
         description: '',
         price: '',
         image: '',
-        category: 'snapback',
+        category: 'wears',
         quantity: '',
         featured: false,
         active: true
@@ -230,7 +230,7 @@ function AdminProducts() {
             description: '',
             price: '',
             image: '',
-            category: 'snapback',
+            category: 'wears',
             quantity: '',
             featured: false,
             active: true
@@ -240,7 +240,7 @@ function AdminProducts() {
         setDragActive(false);
     };
 
-    const categories = ['all', 'snapback', 'beanie', 'wavecap'];
+    const categories = ['all', 'snapback', 'beanie', 'wavecap', 'wears'];
 
     if (loading && products.length === 0) {
         return (
@@ -435,6 +435,7 @@ function AdminProducts() {
                                                 <option value="snapback">Snapback</option>
                                                 <option value="beanie">Beanie</option>
                                                 <option value="wavecap">Wave Cap</option>
+                                                <option value="wears">Wears</option>
                                             </select>
                                         </div>
                                     </div>
