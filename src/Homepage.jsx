@@ -11,16 +11,15 @@ import { getFeaturedProducts } from "./database.js";
 import { theme, modernCard, buttonStyles, staggerContainer, staggerItem } from "./theme.js";
 import { Star, Zap, ArrowRight, ChevronRight, TrendingUp, Award, Shield, Truck } from "lucide-react";
 
-import BeanieModel from "/Products/BeanieModel.jpg"
-import BlackSkullModel from "/Products/blackSkullcapmodel.jpg"
-import BlackSkullModel2 from "/Products/BlackSkullCapmodel2.jpg"
-import BlackSnapModel from "/Products/BlackSnapbackmodel.jpg"
-import BlondeSnapModel from "/Products/BlondeSnapbackmodel.jpg"
-import BlueSnapModel from "/Products/Bluesnapbackmodel.jpg"
-import CamoSkullModel from "/Products/CamoSkullCapModel.jpg"
-import OGSkullModel from "/Products/OGSkullcapmodel.jpg"
-import PinkSkullModel from "/Products/PinkSkullCapmodel.jpg"
-import SkullModels from "/Products/SkullCapModels.jpg"
+import Jort from "../Products/jorts.jpg"
+import Og from "../Products/Ogwavecap.jpg"
+import RB from "../Products/RBmodel.jpg"
+import Rockstar from "../Products/Rockstarblackmodel.jpg"
+import Rockstarw from "../Products/rockstarwhitemodel.jpg"
+import Single from "../Products/singlemodel.JPG"
+import two from "../Products/two.JPG"
+import twomodels from "../Products/twomodels.JPG"
+
 
 function Homepage() {
     const [selectedPic, setSelectedPic] = useState(null);
@@ -28,9 +27,8 @@ function Homepage() {
     const [loading, setLoading] = useState(true);
 
     const galleryImages = [
-        BeanieModel, BlackSkullModel, BlondeSnapModel, BlackSkullModel2,
-        PinkSkullModel, OGSkullModel, BlackSnapModel, BlueSnapModel,
-        CamoSkullModel, SkullModels
+        two, Og, Rockstar, Single,
+        twomodels, Rockstarw, RB, Jort
     ];
 
     useEffect(() => {
