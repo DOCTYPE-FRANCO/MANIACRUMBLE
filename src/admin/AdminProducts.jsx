@@ -559,7 +559,7 @@ function AdminProducts() {
                                                     }
                                                 </span>
                                                 <span className="text-xs text-gray-400 mt-1">
-                                                    PNG, JPG, JPEG up to 5MB
+                                                    PNG, JPG, JPEG up to 20MB
                                                 </span>
                                             </label>
                                         </div>

@@ -66,14 +66,14 @@ export const createLocalImagePath = (file) => {
 // Validate image file
 export const validateImageFile = (file) => {
     const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-    const maxSize = 5 * 1024 * 1024; // 5MB
+    const maxSize = 20 * 1024 * 1024; // 20MB
 
     if (!validTypes.includes(file.type)) {
         throw new Error('Please select a valid image file (JPEG, PNG, or WebP)');
     }
 
     if (file.size > maxSize) {
-        throw new Error('Image size should be less than 5MB');
+        throw new Error('Image size should be less than 20MB');
     }
 
     return true;
