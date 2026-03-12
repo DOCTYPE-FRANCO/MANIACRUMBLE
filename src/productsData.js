@@ -17,7 +17,7 @@ export const snapbacks = [
         id: "S1",
         name: "Black SnapBack",
         description: "SnapBack Hat.",
-        price: 19.99,
+        price: 8999.00,
         image: BlackSnap,
         quantity: 15,
         category: "snapback"
@@ -26,7 +26,7 @@ export const snapbacks = [
         id: "S2",
         name: "Red SnapBack",
         description: "SnapBack Hat.",
-        price: 19.99,
+        price: 8999.00,
         image: RedSnap,
         quantity: 12,
         category: "snapback"
@@ -35,7 +35,7 @@ export const snapbacks = [
         id: "S3",
         name: "Blonde SnapBack",
         description: "SnapBack Hat.",
-        price: 19.99,
+        price: 8999.00,
         image: BlondeSnap,
         quantity: 10,
         category: "snapback"
@@ -47,7 +47,7 @@ export const beanies = [
         id: "B1",
         name: "Black Beanie",
         description: "Don't Think, Jump Editions.",
-        price: 19.99,
+        price: 8999.00,
         image: Beanie,
         quantity: 20,
         category: "beanie"
@@ -56,7 +56,7 @@ export const beanies = [
         id: "B2",
         name: "Beanie",
         description: "S....",
-        price: 19.99,
+        price: 8999.00,
         image: BeanieM,
         quantity: 8,
         category: "beanie"
@@ -65,7 +65,7 @@ export const beanies = [
         id: "B3",
         name: "Blonde SnapBack",
         description: "A....",
-        price: 19.99,
+        price: 8999.00,
         image: BeanieM2,
         quantity: 5,
         category: "beanie"
@@ -78,7 +78,7 @@ export const waveCaps = [
         name: "Black Wave Cap",
         description: "Wave Cap Hat.",
         image: BlackWaveCap,
-        price: 14.99,
+        price: 6999.00,
         quantity: 25,
         category: "wavecap"
     },
@@ -87,7 +87,7 @@ export const waveCaps = [
         name: "Camo Wave Cap",
         description: "Wave Cap .",
         image: CamoWave,
-        price: 14.99,
+        price: 6999.00,
         quantity: 18,
         category: "wavecap"
     },
@@ -96,7 +96,7 @@ export const waveCaps = [
         name: "Pink Wave Cap",
         description: "Wave Cap .",
         image: PinkWave,
-        price: 14.99,
+        price: 6999.00,
         quantity: 14,
         category: "wavecap"
     },
@@ -105,7 +105,7 @@ export const waveCaps = [
         name: "Gray Wave Cap",
         description: "Wave Cap .",
         image: GrayWave,
-        price: 14.99,
+        price: 6999.00,
         quantity: 10,
         category: "wavecap"
     },
@@ -114,7 +114,7 @@ export const waveCaps = [
         name: "OG Wave Cap",
         description: "Limited Edition Wave Cap .",
         image: OGSkullCap,
-        price: 14.99,
+        price: 6999.00,
         quantity: 7,
         category: "wavecap"
     },
@@ -123,7 +123,7 @@ export const waveCaps = [
         name: "OG Wave Cap (Pink)",
         description: "Limited Edition Wave Cap .",
         image: OGSkullCapPink,
-        price: 14.99,
+        price: 6999.00,
         quantity: 6,
         category: "wavecap"
     }

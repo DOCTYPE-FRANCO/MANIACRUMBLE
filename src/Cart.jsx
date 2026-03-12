@@ -112,8 +112,8 @@ function Cart(){
     const config = {
         public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY || 'FLWPUBK_TEST-SANDBOXDEMOKEY-X',
         tx_ref: `MC-${Date.now()}`,
-        amount: parseFloat(total) + 10,
-        currency: 'USD',
+        amount: parseFloat(total) + 500,
+        currency: 'NGN',
         payment_options: 'card,mobilemoney,ussd',
         customer: {
             email: user?.email || 'customer@example.com',
@@ -148,9 +148,9 @@ function Cart(){
                     try {
                         const orderData = {
                             user_id: user.id,
-                            total: parseFloat(total) + 10,
+                            total: parseFloat(total) + 500,
                             subtotal: parseFloat(total),
-                            tax: 10.00,
+                            tax: 500.00,
                             status: 'processing',
                             payment_status: 'paid',
                             payment_intent_id: response.transaction_id,
@@ -269,7 +269,7 @@ function Cart(){
                                             <h3 className="text-2xl font-bold text-white mb-2">{item.name}</h3>
                                             <p className="text-gray-300 mb-4">{item.description}</p>
                                             <div className="flex items-center gap-4 mb-4">
-                                                <span className="text-3xl font-bold text-white">${item.price}</span>
+                                                <span className="text-3xl font-bold text-white">₦{item.price}</span>
                                                 <span className="text-gray-400 capitalize px-3 py-1 bg-white/10 rounded-full text-sm">
                                                     {item.category}
                                                 </span>
@@ -306,7 +306,7 @@ function Cart(){
                                         <div className="text-right">
                                             <p className="text-gray-400 text-sm mb-1">Item Total</p>
                                             <p className="text-2xl font-bold text-white">
-                                                ${(item.price * item.quantity).toFixed(2)}
+                                                ₦{(item.price * item.quantity).toFixed(2)}
                                             </p>
                                         </div>
                                     </div>
@@ -325,16 +325,16 @@ function Cart(){
                                 <div className="space-y-4 mb-6">
                                     <div className="flex justify-between text-gray-300">
                                         <span>Subtotal ({number} items)</span>
-                                        <span className="font-bold">${total.toFixed(2)}</span>
+                                        <span className="font-bold">₦{total.toFixed(2)}</span>
                                     </div>
                                     <div className="flex justify-between text-gray-300">
                                         <span>Shipping</span>
-                                        <span className="font-bold">$10.00</span>
+                                        <span className="font-bold">₦500.00</span>
                                     </div>
                                     <div className="border-t border-white/20 pt-4">
                                         <div className="flex justify-between text-white text-xl font-bold">
                                             <span>Total</span>
-                                            <span>${(parseFloat(total) + 10).toFixed(2)}</span>
+                                            <span>₦{(parseFloat(total) + 500).toFixed(2)}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -356,7 +356,7 @@ function Cart(){
 
                                 <div className="mt-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl">
                                     <p className="text-green-400 text-sm text-center font-bold">
-                                        🎉 Free shipping on orders over $50!
+                                        🎉 Free shipping on orders over ₦2,500!
                                     </p>
                                 </div>
                             </motion.div>
@@ -500,15 +500,15 @@ function Cart(){
                                     <div className="mb-6">
                                         <div className="flex justify-between text-white mb-2">
                                             <span>Subtotal:</span>
-                                            <span className="font-bold">${total.toFixed(2)}</span>
+                                            <span className="font-bold">₦{total.toFixed(2)}</span>
                                         </div>
                                         <div className="flex justify-between text-white mb-2">
                                             <span>Shipping:</span>
-                                            <span className="font-bold">$10.00</span>
+                                            <span className="font-bold">₦500.00</span>
                                         </div>
                                         <div className="flex justify-between text-white text-2xl font-bold">
                                             <span>Total:</span>
-                                            <span>${(parseFloat(total) + 10).toFixed(2)}</span>
+                                            <span>₦{(parseFloat(total) + 500).toFixed(2)}</span>
                                         </div>
                                     </div>
 

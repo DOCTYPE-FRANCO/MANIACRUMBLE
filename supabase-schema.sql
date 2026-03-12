@@ -177,18 +177,18 @@ CREATE TRIGGER on_auth_user_created
 
 -- Insert initial products data
 INSERT INTO products (id, name, description, price, image, category, quantity, featured) VALUES
-('S1', 'Black SnapBack', 'Premium SnapBack Hat with embroidered logo.', 19.99, '/Products/BlackSnapback.jpg', 'snapback', 15, true),
-('S2', 'Red SnapBack', 'Bold red SnapBack for statement style.', 19.99, '/Products/RedSnapback.jpg', 'snapback', 12, false),
-('S3', 'Blonde SnapBack', 'Trendy blonde SnapBack cap.', 19.99, '/Products/BlondeSnapbackpic.jpg', 'snapback', 10, false),
-('B1', 'Black Beanie', 'Don''t Think, Jump Edition - Premium black beanie.', 19.99, '/Products/Beanie.jpg', 'beanie', 20, true),
-('B2', 'Beanie Model', 'Stylish everyday beanie.', 19.99, '/Products/BeanieModel.jpg', 'beanie', 8, false),
-('B3', 'Beanie Special', 'Limited Edition designer beanie.', 19.99, '/Products/BeanieModel (2).jpg', 'beanie', 5, false),
-('W1', 'Black Wave Cap', 'Classic black wave cap for ultimate comfort.', 14.99, '/Products/BlackWaveCap.jpg', 'wavecap', 25, true),
-('W2', 'Camo Wave Cap', 'Military-inspired camo wave cap.', 14.99, '/Products/CamoSkullCap.jpg', 'wavecap', 18, false),
-('W3', 'Pink Wave Cap', 'Vibrant pink wave cap.', 14.99, '/Products/PinkSkullCap.jpg', 'wavecap', 14, false),
-('W4', 'Gray Wave Cap', 'Subtle gray wave cap.', 14.99, '/Products/GraySkullCap.jpg', 'wavecap', 10, false),
-('W5', 'OG Wave Cap', 'Limited Edition original wave cap.', 14.99, '/Products/OGSkullcap.jpg', 'wavecap', 7, false),
-('W6', 'OG Wave Cap (Pink)', 'Limited Edition pink original wave cap.', 14.99, '/Products/SkullCappink.jpg', 'wavecap', 6, false);
+('S1', 'Black SnapBack', 'Premium SnapBack Hat with embroidered logo.', 8999.00, '/Products/BlackSnapback.jpg', 'snapback', 15, true),
+('S2', 'Red SnapBack', 'Bold red SnapBack for statement style.', 8999.00, '/Products/RedSnapback.jpg', 'snapback', 12, false),
+('S3', 'Blonde SnapBack', 'Trendy blonde SnapBack cap.', 8999.00, '/Products/BlondeSnapbackpic.jpg', 'snapback', 10, false),
+('B1', 'Black Beanie', 'Don''t Think, Jump Edition - Premium black beanie.', 8999.00, '/Products/Beanie.jpg', 'beanie', 20, true),
+('B2', 'Beanie Model', 'Stylish everyday beanie.', 8999.00, '/Products/BeanieModel.jpg', 'beanie', 8, false),
+('B3', 'Beanie Special', 'Limited Edition designer beanie.', 8999.00, '/Products/BeanieModel (2).jpg', 'beanie', 5, false),
+('W1', 'Black Wave Cap', 'Classic black wave cap for ultimate comfort.', 6999.00, '/Products/BlackWaveCap.jpg', 'wavecap', 25, true),
+('W2', 'Camo Wave Cap', 'Military-inspired camo wave cap.', 6999.00, '/Products/CamoSkullCap.jpg', 'wavecap', 18, false),
+('W3', 'Pink Wave Cap', 'Vibrant pink wave cap.', 6999.00, '/Products/PinkSkullCap.jpg', 'wavecap', 14, false),
+('W4', 'Gray Wave Cap', 'Subtle gray wave cap.', 6999.00, '/Products/GraySkullCap.jpg', 'wavecap', 10, false),
+('W5', 'OG Wave Cap', 'Limited Edition original wave cap.', 6999.00, '/Products/OGSkullcap.jpg', 'wavecap', 7, false),
+('W6', 'OG Wave Cap (Pink)', 'Limited Edition pink original wave cap.', 6999.00, '/Products/SkullCappink.jpg', 'wavecap', 6, false);
 
 -- Create admin user (replace with your email)
 -- INSERT INTO auth.users (email, encrypted_password, email_confirmed_at, role) 

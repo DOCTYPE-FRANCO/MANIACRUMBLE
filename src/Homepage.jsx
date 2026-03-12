@@ -151,7 +151,7 @@ function Homepage() {
                                     </h3>
                                     <p className="text-gray-300 font-medium">{product.description}</p>
                                     <div className="flex items-center justify-center gap-2">
-                                        <span className="text-2xl font-bold text-white">${product.price}</span>
+                                        <span className="text-2xl font-bold text-white">₦{product.price}</span>
                                     </div>
                                 </div>
 

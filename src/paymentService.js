@@ -5,7 +5,7 @@ const useFlutterwavePayment = () => {
         public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY,
         tx_ref: Date.now().toString(),
         amount: 0,
-        currency: 'USD',
+        currency: 'NGN',
         payment_options: 'card,mobilemoney,ussd',
         customer: {
             email: '',
@@ -27,7 +27,7 @@ export const processFlutterwavePayment = async (amount, customer, items) => {
         public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY,
         tx_ref: `MC-${Date.now()}`,
         amount: amount,
-        currency: 'USD',
+        currency: 'NGN',
         payment_options: 'card,mobilemoney,ussd',
         customer: {
             email: customer.email,

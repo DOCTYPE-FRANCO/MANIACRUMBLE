@@ -170,7 +170,7 @@ function ProductDetail() {
                         <span className="text-gray-300">({reviews.length} reviews)</span>
                     </div>
 
-                    <div className="text-3xl font-bold mb-6">${product.price}</div>
+                    <div className="text-3xl font-bold mb-6">₦{product.price}</div>
 
                     <div className="mb-6">
                         {product.quantity === 0 ? (

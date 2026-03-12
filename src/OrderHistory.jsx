@@ -138,9 +138,9 @@ function OrderHistory() {
                                                 <p className="text-gray-600">Quantity: {item.quantity}</p>
                                             </div>
                                             <div className="text-right">
-                                                <p className="font-bold text-black">${item.price}</p>
+                                                <p className="font-bold text-black">₦{item.price}</p>
                                                 <p className="text-sm text-gray-600">
-                                                    ${(item.price * item.quantity).toFixed(2)} total
+                                                    ₦{(item.price * item.quantity).toFixed(2)} total
                                                 </p>
                                             </div>
                                         </div>
@@ -167,9 +167,9 @@ function OrderHistory() {
                                 </div>
                                 
                                 <div className="text-right">
-                                    <p className="text-gray-600">Subtotal: ${order.subtotal}</p>
-                                    <p className="text-gray-600">Tax: ${order.tax}</p>
-                                    <p className="text-2xl font-bold text-black">Total: ${order.total}</p>
+                                    <p className="text-gray-600">Subtotal: ₦{order.subtotal}</p>
+                                    <p className="text-gray-600">Tax: ₦{order.tax}</p>
+                                    <p className="text-2xl font-bold text-black">Total: ₦{order.total}</p>
                                 </div>
                             </div>
 
