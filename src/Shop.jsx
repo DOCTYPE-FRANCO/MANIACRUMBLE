@@ -310,7 +310,7 @@ function Shop() {
                                 {/* Product Image */}
                                 <Link to={`/product/${product.id}`} className={viewMode === 'list' ? 'flex-shrink-0' : 'block'}>
                                     <div className={`relative overflow-hidden rounded-2xl ${
-                                        viewMode === 'list' ? 'w-32 h-32' : 'w-full h-48 mb-4'
+                                        viewMode === 'list' ? 'w-32 h-32' : 'w-full h-64 mb-4'
                                     }`}>
                                         <img 
                                             src={product.image} 
