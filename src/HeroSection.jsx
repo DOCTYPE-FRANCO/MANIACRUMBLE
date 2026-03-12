@@ -7,10 +7,10 @@ function HeroSection() {
     return (
         <div className="flex flex-col md:flex-row md:gap-[150px] gap-10 justify-center items-center mt-32 md:mt-2">
             <div className="flex flex-col justify-center gap-4 items-center hover:scale-105 transition-transform duration-500">
-                <div className="text-4xl md:text-5xl text-gray-500 font-bold">
+                <div className="text-2xl md:text-3xl text-gray-500 font-bold">
                     <Typewriter 
                         options={{
-                            strings: ["Don't think. Jump!"],
+                            strings: ["Built in Resilience for Lane Pavers"],
                             autoStart: true,
                             loop: true,
                         }}
