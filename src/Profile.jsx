@@ -1,14 +1,16 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useAuth } from "./AuthContext";
 import { BeatLoader } from "react-spinners";
 import { toast } from "react-hot-toast";
-import { Eye, EyeOff, Mail, Lock, User as UserIcon, Package, Heart, LogOut } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User as UserIcon, Package, Heart, LogOut, Settings, Shield } from "lucide-react";
 import Logo from "./assets/LOGO.png"
 import { buttonStyles } from "./theme";
+import { getUserProfile } from "./database";
 
 function Profile(){
     const { user, signUp, signIn, signOut, loading: authLoading } = useAuth();
     const [loading, setLoading] = useState(false);
+    const [userProfile, setUserProfile] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -19,6 +21,26 @@ function Profile(){
     });
     const [hasAccount, setHasAccount] = useState(true);
     const [warning, setWarning] = useState(false);
+    
+    // Load user profile when user is available
+    useEffect(() => {
+        if (user && !authLoading) {
+            loadUserProfile();
+        }
+    }, [user, authLoading]);
+
+    const loadUserProfile = async () => {
+        try {
+            const profile = await getUserProfile(user.id);
+            setUserProfile(profile);
+        } catch (error) {
+            console.error('Failed to load user profile:', error);
+            // If profile doesn't exist, user might not have one yet
+            setUserProfile({ role: 'customer' });
+        }
+    };
+    
+    const isAdmin = userProfile?.role === 'admin';
     
     if (user && !authLoading) {
         return (
@@ -65,6 +87,22 @@ function Profile(){
                             My Wishlist
                         </button>
                     </div>
+
+                    {/* Admin Panel Button - Only show for admins */}
+                    {isAdmin && (
+                        <div className="mb-6">
+                            <button 
+                                onClick={() => window.location.href = '/admin'}
+                                className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold py-3 px-6 hover:from-purple-700 hover:to-blue-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg"
+                            >
+                                <Shield size={20} />
+                                Admin Panel
+                            </button>
+                            <p className="text-center text-gray-400 text-sm mt-2">
+                                Manage products, orders, and users
+                            </p>
+                        </div>
+                    )}
                     
                     <button 
                         onClick={signOut}

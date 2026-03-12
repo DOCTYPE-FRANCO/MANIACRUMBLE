@@ -116,7 +116,7 @@ function AdminDashboard() {
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-gray-600 text-sm font-medium">Total Revenue</p>
-                            <p className="text-3xl font-bold text-black">${stats.totalRevenue.toFixed(2)}</p>
+                            <p className="text-3xl font-bold text-black">₦{stats.totalRevenue.toFixed(2)}</p>
                         </div>
                         <DollarSign className="text-green-500" size={32} />
                     </div>
@@ -246,7 +246,7 @@ function AdminDashboard() {
                                             {order.profiles?.name || order.profiles?.email || 'N/A'}
                                         </td>
                                         <td className="py-3 px-4 font-semibold">
-                                            ${order.total}
+                                            ₦{order.total}
                                         </td>
                                         <td className="py-3 px-4">
                                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}>

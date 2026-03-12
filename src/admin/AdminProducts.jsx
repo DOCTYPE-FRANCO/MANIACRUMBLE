@@ -9,9 +9,12 @@ import {
     Eye,
     EyeOff,
     Star,
-    Package
+    Package,
+    Upload,
+    X
 } from 'lucide-react';
 import { getAllProducts, createProduct, updateProduct, deleteProduct } from '../database';
+import { uploadProductImage, createLocalImagePath, validateImageFile } from '../imageUploadService';
 import { toast } from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners';
 
@@ -34,6 +37,9 @@ function AdminProducts() {
         featured: false,
         active: true
     });
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+    const [dragActive, setDragActive] = useState(false);
 
     useEffect(() => {
         loadProducts();
@@ -79,13 +85,81 @@ function AdminProducts() {
         }));
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            processImageFile(file);
+        }
+    };
+
+    const processImageFile = (file) => {
+        try {
+            // Validate file
+            validateImageFile(file);
+            
+            setImageFile(file);
+            
+            // Create preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setImagePreview(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
+
+    const handleDrag = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.type === "dragenter" || e.type === "dragover") {
+            setDragActive(true);
+        } else if (e.type === "dragleave") {
+            setDragActive(false);
+        }
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
+        
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            processImageFile(e.dataTransfer.files[0]);
+        }
+    };
+
+    const uploadImage = async (file, productId) => {
+        try {
+            // Try to upload to Supabase Storage first
+            // If that fails, fall back to local path
+            try {
+                return await uploadProductImage(file, productId);
+            } catch (storageError) {
+                console.warn('Supabase Storage not configured, using local path:', storageError);
+                return await createLocalImagePath(file);
+            }
+        } catch (error) {
+            throw new Error('Failed to process image');
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
+            let imageUrl = formData.image;
+            
+            // Upload image if a new file was selected
+            if (imageFile) {
+                imageUrl = await uploadImage(imageFile, formData.id || `temp-${Date.now()}`);
+            }
+
             const productData = {
                 ...formData,
+                image: imageUrl,
                 price: parseFloat(formData.price),
                 quantity: parseInt(formData.quantity)
             };
@@ -122,6 +196,8 @@ function AdminProducts() {
             featured: product.featured,
             active: product.active
         });
+        setImageFile(null);
+        setImagePreview(product.image);
         setShowModal(true);
     };
 
@@ -159,6 +235,9 @@ function AdminProducts() {
             featured: false,
             active: true
         });
+        setImageFile(null);
+        setImagePreview(null);
+        setDragActive(false);
     };
 
     const categories = ['all', 'snapback', 'beanie', 'wavecap'];
@@ -423,16 +502,81 @@ function AdminProducts() {
 
                                     <div>
                                         <label className="block text-sm font-bold text-gray-700 mb-2">
-                                            Image URL
+                                            Product Image
                                         </label>
-                                        <input
-                                            type="text"
-                                            name="image"
-                                            value={formData.image}
-                                            onChange={handleInputChange}
-                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black"
-                                            required
-                                        />
+                                        
+                                        {/* Image Preview */}
+                                        {imagePreview && (
+                                            <div className="mb-4 relative">
+                                                <img 
+                                                    src={imagePreview} 
+                                                    alt="Preview" 
+                                                    className="w-32 h-32 object-cover rounded-lg border-2 border-gray-300"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setImagePreview(null);
+                                                        setImageFile(null);
+                                                        setFormData(prev => ({ ...prev, image: '' }));
+                                                    }}
+                                                    className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                                                >
+                                                    <X size={16} />
+                                                </button>
+                                            </div>
+                                        )}
+                                        
+                                        {/* File Upload */}
+                                        <div 
+                                            className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+                                                dragActive 
+                                                    ? 'border-blue-400 bg-blue-50' 
+                                                    : 'border-gray-300 hover:border-gray-400'
+                                            }`}
+                                            onDragEnter={handleDrag}
+                                            onDragLeave={handleDrag}
+                                            onDragOver={handleDrag}
+                                            onDrop={handleDrop}
+                                        >
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={handleImageChange}
+                                                className="hidden"
+                                                id="image-upload"
+                                            />
+                                            <label 
+                                                htmlFor="image-upload" 
+                                                className="cursor-pointer flex flex-col items-center"
+                                            >
+                                                <Upload className="w-8 h-8 text-gray-400 mb-2" />
+                                                <span className="text-sm text-gray-600">
+                                                    {dragActive 
+                                                        ? 'Drop image here...' 
+                                                        : 'Click to upload image or drag and drop'
+                                                    }
+                                                </span>
+                                                <span className="text-xs text-gray-400 mt-1">
+                                                    PNG, JPG, JPEG up to 5MB
+                                                </span>
+                                            </label>
+                                        </div>
+                                        
+                                        {/* Alternative URL Input */}
+                                        <div className="mt-4">
+                                            <label className="block text-xs text-gray-500 mb-1">
+                                                Or enter image URL:
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="image"
+                                                value={formData.image}
+                                                onChange={handleInputChange}
+                                                placeholder="https://example.com/image.jpg"
+                                                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-sm"
+                                            />
+                                        </div>
                                     </div>
 
                                     <div className="flex gap-4">
