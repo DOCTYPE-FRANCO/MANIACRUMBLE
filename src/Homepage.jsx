@@ -116,6 +116,7 @@ function Homepage() {
                                     <img 
                                         src={image} 
                                         alt={`Gallery ${index + 1}`}
+                                        loading="lazy"
                                         className="w-full h-full object-cover rounded-2xl shadow-2xl group-hover:scale-105 transition-transform duration-500" 
                                     />
                                     <div className="absolute bottom-4 left-4 right-4 z-20">
